@@ -19,6 +19,10 @@ export const SUPPORTED_CURRENCIES = [
   { label: 'US Dollar ($)', symbol: '$' },
   { label: 'Euro (€)', symbol: '€' },
   { label: 'Pound (£)', symbol: '£' },
+  { label: 'Yuan (CN¥)', symbol: 'CN¥' },
+  { label: 'Dinar (Dinar)', symbol: 'Dinar' },
+  { label: 'Yen (¥)', symbol: '¥' },
+  { label: 'Lira (₺)', symbol: '₺' },
 ];
 
 export const DEFAULT_CATEGORIES: Category[] = [
