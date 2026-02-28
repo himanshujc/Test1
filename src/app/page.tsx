@@ -16,7 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import { Expense, Category, SUPPORTED_CURRENCIES } from "@/lib/types";
 
-export default function SpendWiseApp() {
+export default function PocketTrackApp() {
   const { 
     expenses, 
     categories, 
@@ -157,16 +157,18 @@ export default function SpendWiseApp() {
         )}
       </main>
 
-      {/* Floating Action Button */}
-      <div className="absolute bottom-24 right-6 z-50">
-        <Button 
-          size="icon" 
-          className="w-14 h-14 rounded-full shadow-2xl scale-110 active:scale-95 transition-transform bg-primary"
-          onClick={handleAddExpenseClick}
-        >
-          <Plus className="w-8 h-8" />
-        </Button>
-      </div>
+      {/* Floating Action Button - Hidden on categories tab */}
+      {activeTab !== "categories" && (
+        <div className="absolute bottom-24 right-6 z-50">
+          <Button 
+            size="icon" 
+            className="w-14 h-14 rounded-full shadow-2xl scale-110 active:scale-95 transition-transform bg-primary"
+            onClick={handleAddExpenseClick}
+          >
+            <Plus className="w-8 h-8" />
+          </Button>
+        </div>
+      )}
 
       {/* Navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t h-20 flex items-center justify-around px-2 mobile-nav-shadow max-w-md mx-auto z-40">
