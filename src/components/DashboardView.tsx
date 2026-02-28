@@ -15,9 +15,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 interface DashboardViewProps {
   expenses: Expense[];
   categories: Category[];
+  currency: string;
 }
 
-export function DashboardView({ expenses, categories }: DashboardViewProps) {
+export function DashboardView({ expenses, categories, currency }: DashboardViewProps) {
   const [insight, setInsight] = useState<string | null>(null);
   const [loadingInsight, setLoadingInsight] = useState(false);
 
@@ -72,7 +73,7 @@ export function DashboardView({ expenses, categories }: DashboardViewProps) {
         <Card className="bg-primary text-primary-foreground border-none">
           <CardContent className="p-4 flex flex-col justify-center min-h-[100px]">
             <span className="text-xs font-medium opacity-80 mb-1 uppercase tracking-wider">Total Spending</span>
-            <span className="text-2xl font-bold font-headline">${totalSpending.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+            <span className="text-2xl font-bold font-headline">{currency} {totalSpending.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
           </CardContent>
         </Card>
         <Card className="bg-white border-none shadow-sm">
@@ -132,6 +133,7 @@ export function DashboardView({ expenses, categories }: DashboardViewProps) {
                   </Pie>
                   <RechartsTooltip 
                     contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                    formatter={(value: number) => [`${currency} ${value.toFixed(2)}`, 'Amount']}
                   />
                   <Legend verticalAlign="bottom" height={36}/>
                 </PieChart>
@@ -158,6 +160,7 @@ export function DashboardView({ expenses, categories }: DashboardViewProps) {
                 <RechartsTooltip 
                   cursor={{ fill: 'transparent' }}
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                  formatter={(value: number) => [`${currency} ${value.toFixed(2)}`, 'Amount']}
                 />
                 <Bar dataKey="amount" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} barSize={24} />
               </BarChart>

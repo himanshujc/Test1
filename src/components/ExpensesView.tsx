@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 interface ExpensesViewProps {
   expenses: Expense[];
   categories: Category[];
+  currency: string;
   onDelete: (id: string) => void;
   onEdit: (expense: Expense) => void;
 }
@@ -18,7 +19,7 @@ const IconMap: Record<string, any> = {
   Utensils, Bus, Film, ShoppingBag, HeartPulse, Zap, LayoutGrid
 };
 
-export function ExpensesView({ expenses, categories, onDelete, onEdit }: ExpensesViewProps) {
+export function ExpensesView({ expenses, categories, currency, onDelete, onEdit }: ExpensesViewProps) {
   const getCategory = (id: string) => categories.find(c => c.id === id) || categories[categories.length - 1];
 
   const sortedExpenses = [...expenses].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -55,7 +56,7 @@ export function ExpensesView({ expenses, categories, onDelete, onEdit }: Expense
                       <div className="flex items-center justify-between mb-0.5">
                         <h4 className="font-semibold text-base truncate font-headline">{expense.description || cat.name}</h4>
                         <span className="font-bold text-base text-foreground font-headline">
-                          ${expense.amount.toFixed(2)}
+                          {currency} {expense.amount.toFixed(2)}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">

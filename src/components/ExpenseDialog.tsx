@@ -16,10 +16,11 @@ interface ExpenseDialogProps {
   onOpenChange: (open: boolean) => void;
   onSubmit: (expense: Omit<Expense, 'id'>) => void;
   categories: Category[];
+  currency: string;
   initialExpense?: Expense;
 }
 
-export function ExpenseDialog({ open, onOpenChange, onSubmit, categories, initialExpense }: ExpenseDialogProps) {
+export function ExpenseDialog({ open, onOpenChange, onSubmit, categories, currency, initialExpense }: ExpenseDialogProps) {
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -79,15 +80,15 @@ export function ExpenseDialog({ open, onOpenChange, onSubmit, categories, initia
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="amount">Amount</Label>
+            <Label htmlFor="amount">Amount ({currency})</Label>
             <div className="relative">
-              <span className="absolute left-3 top-2.5 text-muted-foreground">$</span>
+              <span className="absolute left-3 top-2.5 text-muted-foreground">{currency}</span>
               <Input 
                 id="amount" 
                 type="number" 
                 step="0.01" 
                 placeholder="0.00" 
-                className="pl-7"
+                className="pl-8"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 required

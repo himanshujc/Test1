@@ -14,6 +14,13 @@ export type Expense = {
   categoryId: string;
 };
 
+export const SUPPORTED_CURRENCIES = [
+  { label: 'Rupees (Rs)', symbol: 'Rs' },
+  { label: 'US Dollar ($)', symbol: '$' },
+  { label: 'Euro (€)', symbol: '€' },
+  { label: 'Pound (£)', symbol: '£' },
+];
+
 export const DEFAULT_CATEGORIES: Category[] = [
   { id: '1', name: 'Food', icon: 'Utensils', color: '#FF6B6B' },
   { id: '2', name: 'Transport', icon: 'Bus', color: '#4DABF7' },

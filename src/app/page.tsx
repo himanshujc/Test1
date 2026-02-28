@@ -10,13 +10,17 @@ import { ExpenseDialog } from "@/components/ExpenseDialog";
 import { AdBanner } from "@/components/AdBanner";
 import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { Expense } from "@/lib/types";
+import { Expense, SUPPORTED_CURRENCIES } from "@/lib/types";
 
 export default function SpendWiseApp() {
   const { 
     expenses, 
     categories, 
+    currency,
+    setCurrency,
     addExpense, 
     updateExpense, 
     deleteExpense,
@@ -69,12 +73,13 @@ export default function SpendWiseApp() {
         <AdBanner />
         
         {activeTab === "dashboard" && (
-          <DashboardView expenses={expenses} categories={categories} />
+          <DashboardView expenses={expenses} categories={categories} currency={currency} />
         )}
         {activeTab === "expenses" && (
           <ExpensesView 
             expenses={expenses} 
             categories={categories} 
+            currency={currency}
             onDelete={deleteExpense}
             onEdit={handleEditClick}
           />
@@ -86,12 +91,30 @@ export default function SpendWiseApp() {
           />
         )}
         {activeTab === "settings" && (
-          <div className="p-10 text-center space-y-4">
+          <div className="p-10 text-center space-y-6">
              <Settings2 className="w-16 h-16 mx-auto opacity-20" />
              <h2 className="text-xl font-headline font-bold">App Settings</h2>
-             <p className="text-muted-foreground text-sm">Configure backup, notifications, and currency options here.</p>
-             <Button variant="outline" className="w-full">Export Data (CSV)</Button>
-             <Button variant="outline" className="w-full text-destructive hover:bg-destructive/5">Reset All Data</Button>
+             
+             <div className="text-left space-y-2">
+                <Label>Default Currency</Label>
+                <Select value={currency} onValueChange={setCurrency}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select currency" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {SUPPORTED_CURRENCIES.map((c) => (
+                      <SelectItem key={c.symbol} value={c.symbol}>
+                        {c.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+             </div>
+
+             <div className="space-y-3">
+               <Button variant="outline" className="w-full">Export Data (CSV)</Button>
+               <Button variant="outline" className="w-full text-destructive hover:bg-destructive/5">Reset All Data</Button>
+             </div>
           </div>
         )}
       </main>
@@ -141,6 +164,7 @@ export default function SpendWiseApp() {
         onOpenChange={setDialogOpen} 
         onSubmit={handleSubmit}
         categories={categories}
+        currency={currency}
         initialExpense={editingExpense}
       />
     </div>
