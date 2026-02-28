@@ -63,6 +63,16 @@ export function useExpenses() {
     setCategories((prev) => [...prev, newCategory]);
   };
 
+  const updateCategory = (id: string, updated: Partial<Category>) => {
+    setCategories((prev) => prev.map((c) => (c.id === id ? { ...c, ...updated } : c)));
+  };
+
+  const deleteCategory = (id: string) => {
+    // Basic check: don't delete if expenses are attached? 
+    // For now, allow deletion but warn or just let it happen (UI reassigns to Misc).
+    setCategories((prev) => prev.filter((c) => c.id !== id));
+  };
+
   return {
     expenses,
     categories,
@@ -72,6 +82,8 @@ export function useExpenses() {
     updateExpense,
     deleteExpense,
     addCategory,
+    updateCategory,
+    deleteCategory,
     isLoaded
   };
 }

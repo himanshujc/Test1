@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,7 @@ interface CategoryDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit: (category: Omit<Category, 'id'>) => void;
+  initialCategory?: Category;
 }
 
 const AVAILABLE_ICONS = [
@@ -43,10 +44,22 @@ const PRESET_COLORS = [
   '#868E96', '#E64980', '#BE4BDB', '#228BE6', '#12B886', '#FAB005'
 ];
 
-export function CategoryDialog({ open, onOpenChange, onSubmit }: CategoryDialogProps) {
+export function CategoryDialog({ open, onOpenChange, onSubmit, initialCategory }: CategoryDialogProps) {
   const [name, setName] = useState("");
   const [selectedIcon, setSelectedIcon] = useState("LayoutGrid");
   const [selectedColor, setSelectedColor] = useState(PRESET_COLORS[0]);
+
+  useEffect(() => {
+    if (initialCategory) {
+      setName(initialCategory.name);
+      setSelectedIcon(initialCategory.icon);
+      setSelectedColor(initialCategory.color);
+    } else {
+      setName("");
+      setSelectedIcon("LayoutGrid");
+      setSelectedColor(PRESET_COLORS[0]);
+    }
+  }, [initialCategory, open]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,7 +77,7 @@ export function CategoryDialog({ open, onOpenChange, onSubmit }: CategoryDialogP
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add Custom Category</DialogTitle>
+          <DialogTitle>{initialCategory ? 'Edit Category' : 'Add Custom Category'}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-6 py-4">
           <div className="space-y-2">
@@ -124,7 +137,7 @@ export function CategoryDialog({ open, onOpenChange, onSubmit }: CategoryDialogP
 
           <DialogFooter className="pt-4">
             <Button type="submit" className="w-full h-12 text-lg font-headline">
-              Create Category
+              {initialCategory ? 'Update Category' : 'Create Category'}
             </Button>
           </DialogFooter>
         </form>

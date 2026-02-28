@@ -26,6 +26,8 @@ export default function SpendWiseApp() {
     updateExpense, 
     deleteExpense,
     addCategory,
+    updateCategory,
+    deleteCategory,
     isLoaded 
   } = useExpenses();
 
@@ -33,6 +35,7 @@ export default function SpendWiseApp() {
   const [expenseDialogOpen, setExpenseDialogOpen] = useState(false);
   const [categoryDialogOpen, setCategoryDialogOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | undefined>(undefined);
+  const [editingCategory, setEditingCategory] = useState<Category | undefined>(undefined);
 
   if (!isLoaded) return (
     <div className="min-h-screen bg-background flex items-center justify-center">
@@ -59,7 +62,22 @@ export default function SpendWiseApp() {
   };
 
   const handleCategorySubmit = (data: Omit<Category, 'id'>) => {
-    addCategory(data);
+    if (editingCategory) {
+      updateCategory(editingCategory.id, data);
+    } else {
+      addCategory(data);
+    }
+    setEditingCategory(undefined);
+  };
+
+  const handleEditCategoryClick = (category: Category) => {
+    setEditingCategory(category);
+    setCategoryDialogOpen(true);
+  };
+
+  const handleAddCategoryClick = () => {
+    setEditingCategory(undefined);
+    setCategoryDialogOpen(true);
   };
 
   return (
@@ -94,7 +112,9 @@ export default function SpendWiseApp() {
         {activeTab === "categories" && (
           <CategoryView 
             categories={categories} 
-            onAdd={() => setCategoryDialogOpen(true)}
+            onAdd={handleAddCategoryClick}
+            onEdit={handleEditCategoryClick}
+            onDelete={deleteCategory}
           />
         )}
         {activeTab === "settings" && (
@@ -190,6 +210,7 @@ export default function SpendWiseApp() {
         open={categoryDialogOpen}
         onOpenChange={setCategoryDialogOpen}
         onSubmit={handleCategorySubmit}
+        initialCategory={editingCategory}
       />
     </div>
   );
