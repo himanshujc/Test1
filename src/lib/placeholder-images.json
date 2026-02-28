@@ -1,3 +1,10 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "app-logo",
+      "description": "SpendWise App Logo",
+      "imageUrl": "https://images.unsplash.com/photo-1645536569949-5b6cd4c1f6b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmaW5hbmNlJTIwc2F2aW5nc3xlbnwwfHx8fDE3NzIyNTM1Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "finance savings"
+    }
+  ]
 }
