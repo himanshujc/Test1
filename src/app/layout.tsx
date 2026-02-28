@@ -3,7 +3,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'SpendWise - Personal Expense Tracker',
+  title: 'PocketTrack - Personal Expense Tracker',
   description: 'Track your daily expenses with AI insights and interactive charts.',
 };
 

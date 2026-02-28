@@ -39,7 +39,7 @@ export default function SpendWiseApp() {
 
   if (!isLoaded) return (
     <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="animate-pulse text-primary font-headline font-bold text-2xl">SpendWise</div>
+      <div className="animate-pulse text-primary font-headline font-bold text-2xl">PocketTrack</div>
     </div>
   );
 
@@ -85,7 +85,7 @@ export default function SpendWiseApp() {
       {/* Header */}
       <header className="p-6 pb-2 pt-8 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-black font-headline tracking-tight text-primary">SpendWise</h1>
+          <h1 className="text-3xl font-black font-headline tracking-tight text-primary">PocketTrack</h1>
           <p className="text-sm text-muted-foreground font-medium">Tracking your wealth</p>
         </div>
         <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">

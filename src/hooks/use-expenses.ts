@@ -11,9 +11,9 @@ export function useExpenses() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const savedExpenses = localStorage.getItem('spendwise_expenses');
-    const savedCategories = localStorage.getItem('spendwise_categories');
-    const savedCurrency = localStorage.getItem('spendwise_currency');
+    const savedExpenses = localStorage.getItem('pockettrack_expenses');
+    const savedCategories = localStorage.getItem('pockettrack_categories');
+    const savedCurrency = localStorage.getItem('pockettrack_currency');
 
     if (savedExpenses) {
       setExpenses(JSON.parse(savedExpenses));
@@ -29,19 +29,19 @@ export function useExpenses() {
 
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem('spendwise_expenses', JSON.stringify(expenses));
+      localStorage.setItem('pockettrack_expenses', JSON.stringify(expenses));
     }
   }, [expenses, isLoaded]);
 
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem('spendwise_categories', JSON.stringify(categories));
+      localStorage.setItem('pockettrack_categories', JSON.stringify(categories));
     }
   }, [categories, isLoaded]);
 
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem('spendwise_currency', currency);
+      localStorage.setItem('pockettrack_currency', currency);
     }
   }, [currency, isLoaded]);
 
@@ -68,8 +68,6 @@ export function useExpenses() {
   };
 
   const deleteCategory = (id: string) => {
-    // Basic check: don't delete if expenses are attached? 
-    // For now, allow deletion but warn or just let it happen (UI reassigns to Misc).
     setCategories((prev) => prev.filter((c) => c.id !== id));
   };
 

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -89,7 +90,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
         <CardHeader className="bg-accent/5 pb-2">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-accent" />
-            <CardTitle className="text-sm font-headline uppercase tracking-wide">SpendWise Insights</CardTitle>
+            <CardTitle className="text-sm font-headline uppercase tracking-wide">PocketTrack Insights</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="pt-4">

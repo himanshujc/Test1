@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview This file defines a Genkit flow for generating natural language summaries and insights
@@ -41,7 +42,7 @@ const spendingInsightSummaryPrompt = ai.definePrompt({
   name: 'spendingInsightSummaryPrompt',
   input: {schema: PromptInputSchema},
   output: {schema: PromptOutputSchema},
-  prompt: `You are a helpful financial assistant named SpendWise. Your goal is to provide concise, natural language summaries and actionable insights on personal spending habits, helping users understand their financial behavior and identify areas for improvement.
+  prompt: `You are a helpful financial assistant named PocketTrack. Your goal is to provide concise, natural language summaries and actionable insights on personal spending habits, helping users understand their financial behavior and identify areas for improvement.
 
 Analyze the following spending data for {{periodDescription}}:
 
