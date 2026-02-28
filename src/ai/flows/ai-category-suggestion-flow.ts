@@ -29,7 +29,16 @@ const prompt = ai.definePrompt({
   name: 'aiCategorySuggestionPrompt',
   input: {schema: AICategorySuggestionInputSchema},
   output: {schema: AICategorySuggestionOutputSchema},
-  prompt: `You are an AI assistant designed to categorize expenses.\nGiven the expense description and a list of available categories, your task is to suggest the single most relevant category.\nThe suggested category MUST be one of the categories from the provided list. If none of the provided categories are suitable, you MUST suggest "Miscellaneous" (assuming "Miscellaneous" is in the available categories list).\n\nAvailable Categories: {{{availableCategories}}}\n\nExpense Description: {{{expenseDescription}}}\n\nPlease output the most relevant category in JSON format, matching the output schema:\n{{jsonSchema AICategorySuggestionOutputSchema}}`,
+  prompt: `You are an AI assistant designed to categorize expenses.
+Given the expense description and a list of available categories, your task is to suggest the single most relevant category.
+The suggested category MUST be one of the categories from the provided list. If none of the provided categories are suitable, you MUST suggest "Miscellaneous" (assuming "Miscellaneous" is in the available categories list).
+
+Available Categories:
+{{#each availableCategories}}
+- {{this}}
+{{/each}}
+
+Expense Description: {{{expenseDescription}}}`,
 });
 
 const aiCategorySuggestionFlow = ai.defineFlow(
