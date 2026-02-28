@@ -3,7 +3,10 @@
 
 import { Category } from "@/lib/types";
 import { Card, CardContent } from "@/components/ui/card";
-import { Utensils, Bus, Film, ShoppingBag, HeartPulse, Zap, LayoutGrid, Plus } from "lucide-react";
+import { 
+  Utensils, Bus, Film, ShoppingBag, HeartPulse, Zap, LayoutGrid, Plus,
+  Car, Home, Coffee, GraduationCap, Plane, Gift, Wallet, Phone, Dumbbell
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface CategoryViewProps {
@@ -12,12 +15,13 @@ interface CategoryViewProps {
 }
 
 const IconMap: Record<string, any> = {
-  Utensils, Bus, Film, ShoppingBag, HeartPulse, Zap, LayoutGrid
+  Utensils, Bus, Film, ShoppingBag, HeartPulse, Zap, LayoutGrid,
+  Car, Home, Coffee, GraduationCap, Plane, Gift, Wallet, Phone, Dumbbell
 };
 
 export function CategoryView({ categories, onAdd }: CategoryViewProps) {
   return (
-    <div className="p-4 space-y-6">
+    <div className="p-4 space-y-6 pb-24">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold font-headline text-foreground">Categories</h2>
@@ -40,7 +44,7 @@ export function CategoryView({ categories, onAdd }: CategoryViewProps) {
                 >
                   <IconComp className="w-6 h-6" />
                 </div>
-                <h4 className="font-semibold text-sm font-headline">{cat.name}</h4>
+                <h4 className="font-semibold text-sm font-headline truncate w-full">{cat.name}</h4>
               </CardContent>
             </Card>
           );

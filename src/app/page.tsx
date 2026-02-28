@@ -7,13 +7,14 @@ import { DashboardView } from "@/components/DashboardView";
 import { ExpensesView } from "@/components/ExpensesView";
 import { CategoryView } from "@/components/CategoryView";
 import { ExpenseDialog } from "@/components/ExpenseDialog";
+import { CategoryDialog } from "@/components/CategoryDialog";
 import { AdBanner } from "@/components/AdBanner";
 import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { Expense, SUPPORTED_CURRENCIES } from "@/lib/types";
+import { Expense, Category, SUPPORTED_CURRENCIES } from "@/lib/types";
 
 export default function SpendWiseApp() {
   const { 
@@ -24,11 +25,13 @@ export default function SpendWiseApp() {
     addExpense, 
     updateExpense, 
     deleteExpense,
+    addCategory,
     isLoaded 
   } = useExpenses();
 
   const [activeTab, setActiveTab] = useState<"dashboard" | "expenses" | "categories" | "settings">("dashboard");
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [expenseDialogOpen, setExpenseDialogOpen] = useState(false);
+  const [categoryDialogOpen, setCategoryDialogOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | undefined>(undefined);
 
   if (!isLoaded) return (
@@ -37,22 +40,26 @@ export default function SpendWiseApp() {
     </div>
   );
 
-  const handleEditClick = (expense: Expense) => {
+  const handleEditExpenseClick = (expense: Expense) => {
     setEditingExpense(expense);
-    setDialogOpen(true);
+    setExpenseDialogOpen(true);
   };
 
-  const handleAddClick = () => {
+  const handleAddExpenseClick = () => {
     setEditingExpense(undefined);
-    setDialogOpen(true);
+    setExpenseDialogOpen(true);
   };
 
-  const handleSubmit = (data: Omit<Expense, 'id'>) => {
+  const handleExpenseSubmit = (data: Omit<Expense, 'id'>) => {
     if (editingExpense) {
       updateExpense(editingExpense.id, data);
     } else {
       addExpense(data);
     }
+  };
+
+  const handleCategorySubmit = (data: Omit<Category, 'id'>) => {
+    addCategory(data);
   };
 
   return (
@@ -81,13 +88,13 @@ export default function SpendWiseApp() {
             categories={categories} 
             currency={currency}
             onDelete={deleteExpense}
-            onEdit={handleEditClick}
+            onEdit={handleEditExpenseClick}
           />
         )}
         {activeTab === "categories" && (
           <CategoryView 
             categories={categories} 
-            onAdd={() => alert("Custom categories coming soon!")}
+            onAdd={() => setCategoryDialogOpen(true)}
           />
         )}
         {activeTab === "settings" && (
@@ -113,7 +120,18 @@ export default function SpendWiseApp() {
 
              <div className="space-y-3">
                <Button variant="outline" className="w-full">Export Data (CSV)</Button>
-               <Button variant="outline" className="w-full text-destructive hover:bg-destructive/5">Reset All Data</Button>
+               <Button 
+                variant="outline" 
+                className="w-full text-destructive hover:bg-destructive/5"
+                onClick={() => {
+                  if (confirm("Are you sure? This will erase all local data.")) {
+                    localStorage.clear();
+                    window.location.reload();
+                  }
+                }}
+              >
+                Reset All Data
+              </Button>
              </div>
           </div>
         )}
@@ -124,7 +142,7 @@ export default function SpendWiseApp() {
         <Button 
           size="icon" 
           className="w-14 h-14 rounded-full shadow-2xl scale-110 active:scale-95 transition-transform bg-primary"
-          onClick={handleAddClick}
+          onClick={handleAddExpenseClick}
         >
           <Plus className="w-8 h-8" />
         </Button>
@@ -160,12 +178,18 @@ export default function SpendWiseApp() {
       </nav>
 
       <ExpenseDialog 
-        open={dialogOpen} 
-        onOpenChange={setDialogOpen} 
-        onSubmit={handleSubmit}
+        open={expenseDialogOpen} 
+        onOpenChange={setExpenseDialogOpen} 
+        onSubmit={handleExpenseSubmit}
         categories={categories}
         currency={currency}
         initialExpense={editingExpense}
+      />
+
+      <CategoryDialog
+        open={categoryDialogOpen}
+        onOpenChange={setCategoryDialogOpen}
+        onSubmit={handleCategorySubmit}
       />
     </div>
   );
