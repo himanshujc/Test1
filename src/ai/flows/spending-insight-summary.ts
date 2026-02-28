@@ -19,8 +19,7 @@ const SpendingInsightSummaryInputSchema = z.object({
 });
 export type SpendingInsightSummaryInput = z.infer<typeof SpendingInsightSummaryInputSchema>;
 
-const SpendingInsightSummaryOutputSchema = z.string().describe('A natural language summary and insights about spending trends.');
-export type SpendingInsightSummaryOutput = z.infer<typeof SpendingInsightSummaryOutputSchema>;
+export type SpendingInsightSummaryOutput = string;
 
 // Internal schema for prompt validation that matches the transformed array structure
 const PromptInputSchema = z.object({
@@ -33,10 +32,15 @@ const PromptInputSchema = z.object({
   })),
 });
 
+// Using an object schema for prompt output is significantly more robust in Genkit
+const PromptOutputSchema = z.object({
+  insight: z.string().describe('A natural language summary and insights about spending trends.'),
+});
+
 const spendingInsightSummaryPrompt = ai.definePrompt({
   name: 'spendingInsightSummaryPrompt',
   input: {schema: PromptInputSchema},
-  output: {schema: SpendingInsightSummaryOutputSchema},
+  output: {schema: PromptOutputSchema},
   prompt: `You are a helpful financial assistant named SpendWise. Your goal is to provide concise, natural language summaries and actionable insights on personal spending habits, helping users understand their financial behavior and identify areas for improvement.
 
 Analyze the following spending data for {{periodDescription}}:
@@ -59,7 +63,7 @@ const spendingInsightSummaryFlow = ai.defineFlow(
   {
     name: 'spendingInsightSummaryFlow',
     inputSchema: SpendingInsightSummaryInputSchema,
-    outputSchema: SpendingInsightSummaryOutputSchema,
+    outputSchema: z.string(),
   },
   async (input) => {
     // Transform categoryBreakdown object into an array of {key, value} for easier Handlebars iteration.
@@ -68,13 +72,24 @@ const spendingInsightSummaryFlow = ai.defineFlow(
       value,
     }));
 
-    const {output} = await spendingInsightSummaryPrompt({
-      periodDescription: input.periodDescription,
-      totalSpending: input.totalSpending,
-      currency: input.currency || '$',
-      categoryBreakdown: categoryArray,
-    });
-    return output!;
+    try {
+      const {output} = await spendingInsightSummaryPrompt({
+        periodDescription: input.periodDescription,
+        totalSpending: input.totalSpending,
+        currency: input.currency || '$',
+        categoryBreakdown: categoryArray,
+      });
+      
+      // If the model response is valid, return the insight field
+      if (output && output.insight) {
+        return output.insight;
+      }
+      
+      return "I've analyzed your spending, but I couldn't formulate a specific insight right now. Keep tracking your expenses to see detailed trends!";
+    } catch (error) {
+      console.error("Spending insight generation failed:", error);
+      return "I'm having a little trouble analyzing your data at the moment. Please try again in a few minutes.";
+    }
   }
 );
 

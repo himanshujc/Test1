@@ -48,7 +48,12 @@ const aiCategorySuggestionFlow = ai.defineFlow(
     outputSchema: AICategorySuggestionOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
-    return output!;
+    try {
+      const {output} = await prompt(input);
+      return output || { suggestedCategory: "Miscellaneous" };
+    } catch (error) {
+      console.error("AI category suggestion failed:", error);
+      return { suggestedCategory: "Miscellaneous" };
+    }
   }
 );
