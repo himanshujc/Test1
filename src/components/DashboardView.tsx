@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -9,7 +8,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid 
 } from "recharts";
 import { getSpendingInsightSummary } from "@/ai/flows/spending-insight-summary";
-import { Sparkles, TrendingDown, TrendingUp, DollarSign } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface DashboardViewProps {
@@ -54,7 +53,8 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
         const res = await getSpendingInsightSummary({
           periodDescription: "this month",
           totalSpending,
-          categoryBreakdown: breakdown
+          categoryBreakdown: breakdown,
+          currency
         });
         setInsight(res);
       } catch (e) {
@@ -64,7 +64,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
       }
     }
     fetchInsight();
-  }, [expenses.length]);
+  }, [expenses.length, currency]);
 
   return (
     <div className="space-y-6 pb-24 px-4 pt-4">

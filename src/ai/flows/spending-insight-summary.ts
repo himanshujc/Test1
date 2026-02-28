@@ -15,25 +15,37 @@ const SpendingInsightSummaryInputSchema = z.object({
   periodDescription: z.string().describe('A description of the time period the summary covers (e.g., "this month", "last week").'),
   totalSpending: z.number().describe('The total amount spent during the specified period.'),
   categoryBreakdown: z.record(z.string(), z.number()).describe('An object where keys are expense categories and values are the total amount spent in that category during the period.'),
+  currency: z.string().optional().describe('The currency symbol used for the display.'),
 });
 export type SpendingInsightSummaryInput = z.infer<typeof SpendingInsightSummaryInputSchema>;
 
 const SpendingInsightSummaryOutputSchema = z.string().describe('A natural language summary and insights about spending trends.');
 export type SpendingInsightSummaryOutput = z.infer<typeof SpendingInsightSummaryOutputSchema>;
 
+// Internal schema for prompt validation that matches the transformed array structure
+const PromptInputSchema = z.object({
+  periodDescription: z.string(),
+  totalSpending: z.number(),
+  currency: z.string(),
+  categoryBreakdown: z.array(z.object({
+    key: z.string(),
+    value: z.number(),
+  })),
+});
+
 const spendingInsightSummaryPrompt = ai.definePrompt({
   name: 'spendingInsightSummaryPrompt',
-  input: {schema: SpendingInsightSummaryInputSchema},
+  input: {schema: PromptInputSchema},
   output: {schema: SpendingInsightSummaryOutputSchema},
   prompt: `You are a helpful financial assistant named SpendWise. Your goal is to provide concise, natural language summaries and actionable insights on personal spending habits, helping users understand their financial behavior and identify areas for improvement.
 
 Analyze the following spending data for {{periodDescription}}:
 
-Total Spending: \${{totalSpending}}
+Total Spending: {{currency}} {{totalSpending}}
 
 Category-wise Spending:
 {{#each categoryBreakdown}}
-- {{key}}: \${{value}}
+- {{key}}: {{../currency}} {{value}}
 {{/each}}
 
 Please provide:
@@ -59,6 +71,7 @@ const spendingInsightSummaryFlow = ai.defineFlow(
     const {output} = await spendingInsightSummaryPrompt({
       periodDescription: input.periodDescription,
       totalSpending: input.totalSpending,
+      currency: input.currency || '$',
       categoryBreakdown: categoryArray,
     });
     return output!;
