@@ -16,6 +16,41 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import { Expense, Category, SUPPORTED_CURRENCIES } from "@/lib/types";
 
+/**
+ * PocketTrackLogo - A stylized SVG logo mimicking the cute wallet character.
+ */
+function PocketTrackLogo({ className }: { className?: string }) {
+  return (
+    <svg 
+      viewBox="0 0 1024 1024" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg" 
+      className={className}
+    >
+      {/* Background with rounded corners */}
+      <rect width="1024" height="1024" rx="220" fill="#F59E0B"/>
+      
+      {/* Wallet Body */}
+      <path d="M212 400C212 344.772 256.772 300 312 300H712C767.228 300 812 344.772 812 400V650C812 705.228 767.228 750 712 750H312C256.772 750 212 705.228 212 650V400Z" fill="#D97706"/>
+      
+      {/* Eyes */}
+      <circle cx="412" cy="500" r="35" fill="#451A03"/>
+      <circle cx="612" cy="500" r="35" fill="#451A03"/>
+      
+      {/* Smile */}
+      <path d="M480 580Q512 630 544 580" stroke="#451A03" stroke-width="30" stroke-linecap="round" fill="none"/>
+      
+      {/* Wallet Strap/Clasp */}
+      <rect x="720" y="470" width="92" height="110" rx="20" fill="#B45309"/>
+      <circle cx="775" cy="525" r="15" fill="#F59E0B"/>
+      
+      {/* Shine/Stars accents */}
+      <path d="M150 200L165 185L180 200L165 215Z" fill="white" opacity="0.8" />
+      <path d="M850 300L860 290L870 300L860 310Z" fill="white" opacity="0.8" />
+    </svg>
+  );
+}
+
 export default function PocketTrackApp() {
   const { 
     expenses, 
@@ -39,7 +74,10 @@ export default function PocketTrackApp() {
 
   if (!isLoaded) return (
     <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="animate-pulse text-primary font-headline font-bold text-2xl">PocketTrack</div>
+      <div className="animate-pulse flex flex-col items-center gap-6">
+        <PocketTrackLogo className="w-24 h-24 shadow-2xl drop-shadow-lg" />
+        <div className="text-primary font-headline font-bold text-3xl tracking-tighter">PocketTrack</div>
+      </div>
     </div>
   );
 
@@ -84,9 +122,14 @@ export default function PocketTrackApp() {
     <div className="min-h-screen bg-background flex flex-col max-w-md mx-auto relative shadow-2xl">
       {/* Header */}
       <header className="p-6 pb-2 pt-8 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-black font-headline tracking-tight text-primary">PocketTrack</h1>
-          <p className="text-sm text-muted-foreground font-medium">Tracking your wealth</p>
+        <div className="flex items-center gap-4">
+          <div className="p-0.5 rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
+            <PocketTrackLogo className="w-12 h-12 rounded-2xl" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-black font-headline tracking-tight text-primary leading-tight">PocketTrack</h1>
+            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Daily Expense Tracker</p>
+          </div>
         </div>
         <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
           <div className="w-6 h-6 rounded-full bg-accent animate-pulse" />
@@ -157,8 +200,8 @@ export default function PocketTrackApp() {
         )}
       </main>
 
-      {/* Floating Action Button - Hidden on categories tab */}
-      {activeTab !== "categories" && (
+      {/* Floating Action Button - Hidden on categories and settings tab */}
+      {activeTab !== "categories" && activeTab !== "settings" && (
         <div className="absolute bottom-24 right-6 z-50">
           <Button 
             size="icon" 
