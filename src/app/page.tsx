@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { Expense, Category, SUPPORTED_CURRENCIES } from "@/lib/types";
 
 /**
- * PocketTrackLogo - A stylized SVG logo mimicking the cute wallet character.
+ * PocketTrackLogo - A detailed SVG logo matching the cute wallet character from the user image.
  */
 function PocketTrackLogo({ className }: { className?: string }) {
   return (
@@ -27,26 +27,36 @@ function PocketTrackLogo({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg" 
       className={className}
     >
-      {/* Background with rounded corners */}
-      <rect width="1024" height="1024" rx="220" fill="#F59E0B"/>
+      {/* Background rounded square */}
+      <rect width="1024" height="1024" rx="220" fill="#FBBF24"/>
       
       {/* Wallet Body */}
-      <path d="M212 400C212 344.772 256.772 300 312 300H712C767.228 300 812 344.772 812 400V650C812 705.228 767.228 750 712 750H312C256.772 750 212 705.228 212 650V400Z" fill="#D97706"/>
+      <path d="M212 420C212 364.772 256.772 320 312 320H712C767.228 320 812 364.772 812 420V670C812 725.228 767.228 770 712 770H312C256.772 770 212 725.228 212 670V420Z" fill="#F59E0B"/>
       
-      {/* Eyes */}
-      <circle cx="412" cy="500" r="35" fill="#451A03"/>
-      <circle cx="612" cy="500" r="35" fill="#451A03"/>
+      {/* Top pocket detail */}
+      <path d="M212 420C212 364.772 256.772 320 312 320H712C767.228 320 812 364.772 812 420H212Z" fill="#D97706" opacity="0.3"/>
+
+      {/* Eyes with highlights */}
+      <circle cx="412" cy="540" r="48" fill="#451A03"/>
+      <circle cx="428" cy="522" r="14" fill="white"/>
+      <circle cx="612" cy="540" r="48" fill="#451A03"/>
+      <circle cx="628" cy="522" r="14" fill="white"/>
       
-      {/* Smile */}
-      <path d="M480 580Q512 630 544 580" stroke="#451A03" strokeWidth="30" strokeLinecap="round" fill="none"/>
+      {/* Blush */}
+      <circle cx="330" cy="590" r="35" fill="#F87171" opacity="0.5"/>
+      <circle cx="694" cy="590" r="35" fill="#F87171" opacity="0.5"/>
       
-      {/* Wallet Strap/Clasp */}
-      <rect x="720" y="470" width="92" height="110" rx="20" fill="#B45309"/>
-      <circle cx="775" cy="525" r="15" fill="#F59E0B"/>
+      {/* Happy Mouth */}
+      <path d="M462 640C462 667.614 484.386 690 512 690C539.614 690 562 667.614 562 640H462Z" fill="#991B1B"/>
       
-      {/* Shine/Stars accents */}
-      <path d="M150 200L165 185L180 200L165 215Z" fill="white" opacity="0.8" />
-      <path d="M850 300L860 290L870 300L860 310Z" fill="white" opacity="0.8" />
+      {/* Strap detail */}
+      <path d="M720 500H812V590H740C728.954 590 720 581.046 720 570V500Z" fill="#D97706"/>
+      <circle cx="785" cy="545" r="15" fill="#FBBF24"/>
+      
+      {/* Sparkles */}
+      <path d="M150 200L165 170L180 200L210 215L180 230L165 260L150 230L120 215L150 200Z" fill="white" opacity="0.9" />
+      <path d="M850 350L860 330L870 350L890 360L870 370L860 390L850 370L830 360L850 350Z" fill="white" opacity="0.9" />
+      <path d="M780 780L790 765L800 780L815 790L800 800L790 815L780 800L765 790L780 780Z" fill="white" opacity="0.9" />
     </svg>
   );
 }
@@ -131,8 +141,8 @@ export default function PocketTrackApp() {
             <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider">Daily Expense Tracker</p>
           </div>
         </div>
-        <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-          <div className="w-6 h-6 rounded-full bg-accent animate-pulse" />
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+          <div className="w-6 h-6 rounded-full bg-primary animate-pulse" />
         </div>
       </header>
 
