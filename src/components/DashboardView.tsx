@@ -11,6 +11,7 @@ import {
 import { getSpendingInsightSummary } from "@/ai/flows/spending-insight-summary";
 import { Sparkles, Info } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AdSenseUnit } from "./AdSenseUnit";
 
 interface DashboardViewProps {
   expenses: Expense[];
@@ -108,14 +109,13 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
         </CardContent>
       </Card>
 
-      {/* Inline Ad Slot */}
-      <div className="bg-muted/50 border border-dashed rounded-lg p-4 flex flex-col items-center justify-center min-h-[100px] text-center gap-1">
-        <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase font-bold tracking-widest mb-1">
+      {/* Official AdSense Unit */}
+      <div className="bg-white border border-gray-100 rounded-xl p-3 flex flex-col items-center justify-center min-h-[100px] shadow-sm">
+        <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase font-bold tracking-widest mb-2 w-full justify-start">
           <Info className="w-3 h-3" />
-          Advertisement
+          Sponsored
         </div>
-        <p className="text-xs text-muted-foreground">AdSense Unit Placeholder</p>
-        <div className="w-full h-20 bg-muted rounded animate-pulse" />
+        <AdSenseUnit slot="3927802258" />
       </div>
 
       {/* Charts */}
