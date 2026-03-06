@@ -9,7 +9,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid 
 } from "recharts";
 import { getSpendingInsightSummary } from "@/ai/flows/spending-insight-summary";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Info } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface DashboardViewProps {
@@ -107,6 +107,16 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
           )}
         </CardContent>
       </Card>
+
+      {/* Inline Ad Slot */}
+      <div className="bg-muted/50 border border-dashed rounded-lg p-4 flex flex-col items-center justify-center min-h-[100px] text-center gap-1">
+        <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase font-bold tracking-widest mb-1">
+          <Info className="w-3 h-3" />
+          Advertisement
+        </div>
+        <p className="text-xs text-muted-foreground">AdSense Unit Placeholder</p>
+        <div className="w-full h-20 bg-muted rounded animate-pulse" />
+      </div>
 
       {/* Charts */}
       <div className="grid grid-cols-1 gap-6">

@@ -1,7 +1,7 @@
 
 "use client";
 
-import { X } from "lucide-react";
+import { X, ExternalLink } from "lucide-react";
 import { useState } from "react";
 
 export function AdBanner() {
@@ -10,17 +10,26 @@ export function AdBanner() {
   if (!visible) return null;
 
   return (
-    <div className="relative mx-4 my-2 p-3 bg-white border border-dashed border-gray-300 rounded-lg flex items-center justify-between text-[10px] text-gray-400 font-mono tracking-tighter overflow-hidden">
-      <div className="flex flex-col">
-        <span className="bg-gray-100 px-1 rounded inline-block w-fit mb-1">SPONSORED</span>
-        <span className="text-gray-600 font-sans text-sm font-medium">Get 5% back on groceries today!</span>
+    <div className="relative mx-4 my-2 p-4 bg-white border border-gray-200 rounded-xl shadow-sm flex items-center justify-between overflow-hidden group">
+      <div className="flex flex-col gap-1 pr-8">
+        <div className="flex items-center gap-1.5">
+          <span className="text-[9px] font-bold text-white bg-gray-400 px-1.5 py-0.5 rounded uppercase tracking-tighter">Ads</span>
+          <span className="text-[10px] text-muted-foreground font-medium">Google AdSense</span>
+        </div>
+        <h3 className="text-sm font-bold text-foreground">Save 15% on Car Insurance</h3>
+        <p className="text-[11px] text-muted-foreground line-clamp-1">Compare quotes from top providers and save money today.</p>
       </div>
-      <div className="bg-primary/10 text-primary px-3 py-1 rounded-full font-sans text-xs font-bold">
-        Learn More
+      
+      <div className="shrink-0">
+        <div className="bg-primary text-primary-foreground p-2 rounded-lg group-hover:bg-primary/90 transition-colors">
+          <ExternalLink className="w-4 h-4" />
+        </div>
       </div>
+
       <button 
         onClick={() => setVisible(false)}
-        className="absolute top-1 right-1 p-0.5 hover:bg-gray-100 rounded-full"
+        className="absolute top-2 right-2 p-1 text-muted-foreground hover:bg-muted rounded-full transition-colors"
+        aria-label="Close ad"
       >
         <X className="w-3 h-3" />
       </button>
