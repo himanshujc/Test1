@@ -18,6 +18,7 @@ import { Expense, Category, SUPPORTED_CURRENCIES } from "@/lib/types";
 
 /**
  * PocketTrackLogo - A detailed SVG logo matching the cute orange wallet character from the user image.
+ * Features: Orange wallet body, money sticking out, pencil, calendar, heart bubble, checkmark bubble, and sparkles.
  */
 function PocketTrackLogo({ className }: { className?: string }) {
   return (
