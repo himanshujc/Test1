@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { Expense, Category, SUPPORTED_CURRENCIES } from "@/lib/types";
 
 /**
- * PocketTrackLogo - A detailed SVG logo matching the cute wallet character from the user image.
+ * PocketTrackLogo - A detailed SVG logo matching the cute orange wallet character from the user image.
  */
 function PocketTrackLogo({ className }: { className?: string }) {
   return (
@@ -27,36 +27,50 @@ function PocketTrackLogo({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg" 
       className={className}
     >
-      {/* Background rounded square */}
+      {/* Background rounded square with amber gradient effect */}
       <rect width="1024" height="1024" rx="220" fill="#FBBF24"/>
       
+      {/* Money sticking out of the wallet */}
+      <rect x="340" y="240" width="120" height="200" rx="12" fill="#34D399" transform="rotate(-15 340 240)"/>
+      <rect x="440" y="200" width="140" height="220" rx="12" fill="#10B981"/>
+      <rect x="580" y="250" width="100" height="180" rx="12" fill="#60A5FA" transform="rotate(10 580 250)"/>
+      <circle cx="510" cy="280" r="15" fill="#065F46" opacity="0.3"/>
+
       {/* Wallet Body */}
       <path d="M212 420C212 364.772 256.772 320 312 320H712C767.228 320 812 364.772 812 420V670C812 725.228 767.228 770 712 770H312C256.772 770 212 725.228 212 670V420Z" fill="#F59E0B"/>
       
-      {/* Top pocket detail */}
+      {/* Top pocket fold detail */}
       <path d="M212 420C212 364.772 256.772 320 312 320H712C767.228 320 812 364.772 812 420H212Z" fill="#D97706" opacity="0.3"/>
 
-      {/* Eyes with highlights */}
+      {/* Eyes with white highlights */}
       <circle cx="412" cy="540" r="48" fill="#451A03"/>
       <circle cx="428" cy="522" r="14" fill="white"/>
       <circle cx="612" cy="540" r="48" fill="#451A03"/>
       <circle cx="628" cy="522" r="14" fill="white"/>
       
-      {/* Blush */}
+      {/* Blush cheeks */}
       <circle cx="330" cy="590" r="35" fill="#F87171" opacity="0.5"/>
       <circle cx="694" cy="590" r="35" fill="#F87171" opacity="0.5"/>
       
       {/* Happy Mouth */}
       <path d="M462 640C462 667.614 484.386 690 512 690C539.614 690 562 667.614 562 640H462Z" fill="#991B1B"/>
       
-      {/* Strap detail */}
+      {/* Wallet Strap and Clasp */}
       <path d="M720 500H812V590H740C728.954 590 720 581.046 720 570V500Z" fill="#D97706"/>
       <circle cx="785" cy="545" r="15" fill="#FBBF24"/>
       
-      {/* Sparkles */}
-      <path d="M150 200L165 170L180 200L210 215L180 230L165 260L150 230L120 215L150 200Z" fill="white" opacity="0.9" />
-      <path d="M850 350L860 330L870 350L890 360L870 370L860 390L850 370L830 360L850 350Z" fill="white" opacity="0.9" />
-      <path d="M780 780L790 765L800 780L815 790L800 800L790 815L780 800L765 790L780 780Z" fill="white" opacity="0.9" />
+      {/* Heart Accessory Bubble */}
+      <circle cx="850" cy="200" r="90" fill="#EF4444" opacity="0.9"/>
+      <path d="M850 230C850 230 890 190 890 165C890 150 875 140 865 140C855 140 850 150 850 150C850 150 845 140 835 140C825 140 810 150 810 165C810 190 850 230 850 230Z" fill="white"/>
+
+      {/* Checkmark Accessory Bubble */}
+      <circle cx="170" cy="240" r="90" fill="#10B981" opacity="0.9"/>
+      <path d="M130 240L155 265L210 210" stroke="white" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+
+      {/* Sparkles around the wallet */}
+      <path d="M150 750L165 720L180 750L210 765L180 780L165 810L150 780L120 765L150 750Z" fill="white" opacity="0.9" />
+      <path d="M900 450L910 430L920 450L940 460L920 470L910 490L900 470L880 460L900 450Z" fill="white" opacity="0.9" />
+      <path d="M780 880L790 865L800 880L815 890L800 900L790 915L780 900L765 890L780 880Z" fill="white" opacity="0.9" />
     </svg>
   );
 }
