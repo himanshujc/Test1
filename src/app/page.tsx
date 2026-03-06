@@ -38,7 +38,7 @@ function PocketTrackLogo({ className }: { className?: string }) {
       <circle cx="612" cy="500" r="35" fill="#451A03"/>
       
       {/* Smile */}
-      <path d="M480 580Q512 630 544 580" stroke="#451A03" stroke-width="30" stroke-linecap="round" fill="none"/>
+      <path d="M480 580Q512 630 544 580" stroke="#451A03" strokeWidth="30" strokeLinecap="round" fill="none"/>
       
       {/* Wallet Strap/Clasp */}
       <rect x="720" y="470" width="92" height="110" rx="20" fill="#B45309"/>
