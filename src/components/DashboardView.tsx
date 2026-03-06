@@ -3,15 +3,16 @@
 
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Expense, Category } from "@/lib/types";
+import { Expense, Category, SuperCategory, SUPER_CATEGORIES } from "@/lib/types";
 import { 
   PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip as RechartsTooltip,
   BarChart, Bar, XAxis, YAxis, CartesianGrid 
 } from "recharts";
 import { getSpendingInsightSummary } from "@/ai/flows/spending-insight-summary";
-import { Sparkles, Info } from "lucide-react";
+import { Sparkles, Info, Filter } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AdSenseUnit } from "./AdSenseUnit";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface DashboardViewProps {
   expenses: Expense[];
@@ -22,12 +23,17 @@ interface DashboardViewProps {
 export function DashboardView({ expenses, categories, currency }: DashboardViewProps) {
   const [insight, setInsight] = useState<string | null>(null);
   const [loadingInsight, setLoadingInsight] = useState(false);
+  const [filter, setFilter] = useState<SuperCategory | 'All'>('All');
 
-  const totalSpending = expenses.reduce((sum, e) => sum + e.amount, 0);
+  const filteredExpenses = filter === 'All' 
+    ? expenses 
+    : expenses.filter(e => e.superCategory === filter || (!e.superCategory && filter === 'Personal'));
+
+  const totalSpending = filteredExpenses.reduce((sum, e) => sum + e.amount, 0);
 
   // Group by category
   const categoryData = categories.map(cat => {
-    const amount = expenses
+    const amount = filteredExpenses
       .filter(e => e.categoryId === cat.id)
       .reduce((sum, e) => sum + e.amount, 0);
     return { name: cat.name, value: amount, color: cat.color };
@@ -38,7 +44,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
     const d = new Date();
     d.setDate(d.getDate() - i);
     const dateStr = d.toISOString().split('T')[0];
-    const amount = expenses
+    const amount = filteredExpenses
       .filter(e => e.date === dateStr)
       .reduce((sum, e) => sum + e.amount, 0);
     return { date: dateStr.split('-').slice(1).join('/'), amount };
@@ -46,14 +52,19 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
 
   useEffect(() => {
     async function fetchInsight() {
-      if (expenses.length === 0) return;
+      if (filteredExpenses.length === 0) {
+        setInsight(null);
+        return;
+      }
       setLoadingInsight(true);
       try {
         const breakdown: Record<string, number> = {};
         categoryData.forEach(d => breakdown[d.name] = d.value);
         
+        const periodDesc = filter === 'All' ? "this month (overall)" : `this month for ${filter}`;
+        
         const res = await getSpendingInsightSummary({
-          periodDescription: "this month",
+          periodDescription: periodDesc,
           totalSpending,
           categoryBreakdown: breakdown,
           currency
@@ -66,22 +77,40 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
       }
     }
     fetchInsight();
-  }, [expenses.length, currency]);
+  }, [filteredExpenses.length, currency, filter]);
 
   return (
     <div className="space-y-6 pb-24 px-4 pt-4">
+      {/* Super Category Filter */}
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-1">
+          <Filter className="w-3 h-3" />
+          Filter by life domain
+        </div>
+        <Tabs value={filter} onValueChange={(v) => setFilter(v as any)} className="w-full">
+          <TabsList className="grid grid-cols-4 w-full h-9 bg-muted/50 p-1">
+            <TabsTrigger value="All" className="text-[10px] uppercase font-bold tracking-tighter">All</TabsTrigger>
+            <TabsTrigger value="Personal" className="text-[10px] uppercase font-bold tracking-tighter">Personal</TabsTrigger>
+            <TabsTrigger value="Family" className="text-[10px] uppercase font-bold tracking-tighter">Family</TabsTrigger>
+            <TabsTrigger value="P&F" className="text-[10px] uppercase font-bold tracking-tighter">P&F</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
+
       {/* Summary Cards */}
       <div className="grid grid-cols-2 gap-4">
         <Card className="bg-primary text-primary-foreground border-none">
           <CardContent className="p-4 flex flex-col justify-center min-h-[100px]">
-            <span className="text-xs font-medium opacity-80 mb-1 uppercase tracking-wider">Total Spending</span>
+            <span className="text-xs font-medium opacity-80 mb-1 uppercase tracking-wider">
+              {filter} Spending
+            </span>
             <span className="text-2xl font-bold font-headline">{currency} {totalSpending.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
           </CardContent>
         </Card>
         <Card className="bg-white border-none shadow-sm">
           <CardContent className="p-4 flex flex-col justify-center min-h-[100px]">
              <span className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wider">Transactions</span>
-             <span className="text-2xl font-bold font-headline text-primary">{expenses.length}</span>
+             <span className="text-2xl font-bold font-headline text-primary">{filteredExpenses.length}</span>
           </CardContent>
         </Card>
       </div>
@@ -104,7 +133,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
           ) : insight ? (
             <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">{insight}</p>
           ) : (
-            <p className="text-sm text-muted-foreground italic">Add expenses to see AI-powered financial insights.</p>
+            <p className="text-sm text-muted-foreground italic">Add {filter === 'All' ? 'expenses' : `${filter} expenses`} to see AI-powered financial insights.</p>
           )}
         </CardContent>
       </Card>
@@ -123,7 +152,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
         <Card className="border-none shadow-sm">
           <CardHeader>
             <CardTitle className="text-lg font-headline">Category Breakdown</CardTitle>
-            <CardDescription>Where your money goes</CardDescription>
+            <CardDescription>{filter === 'All' ? 'Overall' : filter} distribution</CardDescription>
           </CardHeader>
           <CardContent className="h-[250px] pt-0">
             {categoryData.length > 0 ? (
@@ -151,7 +180,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
               </ResponsiveContainer>
             ) : (
               <div className="h-full flex items-center justify-center text-muted-foreground italic text-sm">
-                No data available
+                No data for this filter
               </div>
             )}
           </CardContent>
@@ -160,7 +189,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
         <Card className="border-none shadow-sm">
           <CardHeader>
             <CardTitle className="text-lg font-headline">7-Day Trend</CardTitle>
-            <CardDescription>Daily spending habits</CardDescription>
+            <CardDescription>Habits for {filter}</CardDescription>
           </CardHeader>
           <CardContent className="h-[250px] pt-0">
             <ResponsiveContainer width="100%" height="100%">

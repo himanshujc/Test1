@@ -1,4 +1,6 @@
 
+export type SuperCategory = 'Personal' | 'Family' | 'P&F';
+
 export type Category = {
   id: string;
   name: string;
@@ -12,6 +14,7 @@ export type Expense = {
   date: string;
   description: string;
   categoryId: string;
+  superCategory?: SuperCategory;
 };
 
 export const SUPPORTED_CURRENCIES = [
@@ -24,6 +27,8 @@ export const SUPPORTED_CURRENCIES = [
   { label: 'Yen (¥)', symbol: '¥' },
   { label: 'Lira (₺)', symbol: '₺' },
 ];
+
+export const SUPER_CATEGORIES: SuperCategory[] = ['Personal', 'Family', 'P&F'];
 
 export const DEFAULT_CATEGORIES: Category[] = [
   { id: '1', name: 'Food', icon: 'Utensils', color: '#FF6B6B' },

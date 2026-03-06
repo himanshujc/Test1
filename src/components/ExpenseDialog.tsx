@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Expense, Category } from "@/lib/types";
+import { Expense, Category, SUPER_CATEGORIES, SuperCategory } from "@/lib/types";
 import { aiCategorySuggestion } from "@/ai/flows/ai-category-suggestion-flow";
 import { Sparkles, Loader2 } from "lucide-react";
 
@@ -24,6 +24,7 @@ export function ExpenseDialog({ open, onOpenChange, onSubmit, categories, curren
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [superCategory, setSuperCategory] = useState<SuperCategory>("Personal");
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [isSuggesting, setIsSuggesting] = useState(false);
 
@@ -32,11 +33,13 @@ export function ExpenseDialog({ open, onOpenChange, onSubmit, categories, curren
       setAmount(initialExpense.amount.toString());
       setDescription(initialExpense.description);
       setCategoryId(initialExpense.categoryId);
+      setSuperCategory(initialExpense.superCategory || "Personal");
       setDate(initialExpense.date);
     } else {
       setAmount("");
       setDescription("");
       setCategoryId(categories[0]?.id || "");
+      setSuperCategory("Personal");
       setDate(new Date().toISOString().split('T')[0]);
     }
   }, [initialExpense, open, categories]);
@@ -67,6 +70,7 @@ export function ExpenseDialog({ open, onOpenChange, onSubmit, categories, curren
       amount: parseFloat(amount),
       description,
       categoryId,
+      superCategory,
       date
     });
     onOpenChange(false);
@@ -117,21 +121,40 @@ export function ExpenseDialog({ open, onOpenChange, onSubmit, categories, curren
               </Button>
             </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="category">Category</Label>
-            <Select value={categoryId} onValueChange={setCategoryId}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select category" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((cat) => (
-                  <SelectItem key={cat.id} value={cat.id}>
-                    {cat.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="category">Category</Label>
+              <Select value={categoryId} onValueChange={setCategoryId}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((cat) => (
+                    <SelectItem key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="super-category">Super Category</Label>
+              <Select value={superCategory} onValueChange={(v) => setSuperCategory(v as SuperCategory)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  {SUPER_CATEGORIES.map((sc) => (
+                    <SelectItem key={sc} value={sc}>
+                      {sc}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
+
           <div className="space-y-2">
             <Label htmlFor="date">Date</Label>
             <Input 

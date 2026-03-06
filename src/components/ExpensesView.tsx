@@ -3,7 +3,7 @@
 
 import { Expense, Category } from "@/lib/types";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trash2, Edit2, ShoppingBag, Utensils, Bus, Film, HeartPulse, Zap, LayoutGrid, Calendar } from "lucide-react";
+import { Trash2, Edit2, ShoppingBag, Utensils, Bus, Film, HeartPulse, Zap, LayoutGrid, Calendar, User, Users, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -32,6 +32,14 @@ export function ExpensesView({ expenses, categories, currency, onDelete, onEdit 
     groupedExpenses[month].push(e);
   });
 
+  const getSuperCategoryIcon = (sc: string | undefined) => {
+    switch (sc) {
+      case 'Family': return <Users className="w-3 h-3" />;
+      case 'P&F': return <Briefcase className="w-3 h-3" />;
+      default: return <User className="w-3 h-3" />;
+    }
+  };
+
   return (
     <div className="pb-32 pt-4">
       {Object.entries(groupedExpenses).map(([month, items]) => (
@@ -54,12 +62,20 @@ export function ExpensesView({ expenses, categories, currency, onDelete, onEdit 
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-0.5">
-                        <h4 className="font-semibold text-base truncate font-headline">{expense.description || cat.name}</h4>
+                        <div className="flex flex-col truncate">
+                          <h4 className="font-semibold text-base truncate font-headline leading-tight">{expense.description || cat.name}</h4>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                             <span className="text-[9px] text-primary font-bold uppercase tracking-tighter flex items-center gap-1 bg-primary/5 px-1.5 rounded">
+                               {getSuperCategoryIcon(expense.superCategory)}
+                               {expense.superCategory || 'Personal'}
+                             </span>
+                          </div>
+                        </div>
                         <span className="font-bold text-base text-foreground font-headline">
                           {currency} {expense.amount.toFixed(2)}
                         </span>
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between mt-1">
                         <div className="flex items-center gap-2">
                           <Badge variant="outline" className="font-normal text-[10px] px-1.5 py-0 h-4 border-muted-foreground/20 text-muted-foreground">
                             {cat.name}
