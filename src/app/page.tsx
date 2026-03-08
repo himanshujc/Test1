@@ -142,6 +142,17 @@ export default function PocketTrackApp() {
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto">
         <AdBanner />
+
+        {activeTab === "dashboard" && (
+          <div className="px-6 py-10 bg-gradient-to-b from-primary/5 to-transparent text-center space-y-4 border-b border-primary/5">
+            <h2 className="text-3xl font-black font-headline text-primary tracking-tight leading-tight">
+              PocketTrack – Free Daily Expense Tracker
+            </h2>
+            <p className="text-[13px] text-muted-foreground font-medium leading-relaxed max-w-[300px] mx-auto">
+              Track your spending, analyze your habits, and manage your personal finances easily.
+            </p>
+          </div>
+        )}
         
         {activeTab === "dashboard" && (
           <DashboardView expenses={expenses} categories={categories} currency={currency} />
