@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -8,6 +9,7 @@ import { CategoryView } from "@/components/CategoryView";
 import { UserGuide } from "@/components/UserGuide";
 import { ExpenseDialog } from "@/components/ExpenseDialog";
 import { CategoryDialog } from "@/components/CategoryDialog";
+import { PrivacyDialog } from "@/components/PrivacyDialog";
 import { AdBanner } from "@/components/AdBanner";
 import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2, ShieldCheck, Zap, Info, ScrollText, HeartHandshake, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -69,6 +71,7 @@ export default function PocketTrackApp() {
   const [activeTab, setActiveTab] = useState<"dashboard" | "expenses" | "categories" | "guide" | "settings">("dashboard");
   const [expenseDialogOpen, setExpenseDialogOpen] = useState(false);
   const [categoryDialogOpen, setCategoryDialogOpen] = useState(false);
+  const [privacyDialogOpen, setPrivacyDialogOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | undefined>(undefined);
   const [editingCategory, setEditingCategory] = useState<Category | undefined>(undefined);
 
@@ -250,7 +253,12 @@ export default function PocketTrackApp() {
              <div className="text-center pt-8 border-t">
                <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">© 2024 PocketTrack - Pocket Tracker App</p>
                <div className="flex justify-center gap-4 mt-2">
-                 <button className="text-[10px] font-bold text-primary underline">Privacy Center</button>
+                 <button 
+                  className="text-[10px] font-bold text-primary underline"
+                  onClick={() => setPrivacyDialogOpen(true)}
+                 >
+                   Privacy Center
+                 </button>
                  <button className="text-[10px] font-bold text-primary underline" onClick={() => setActiveTab("guide")}>App Guide</button>
                </div>
              </div>
@@ -309,20 +317,16 @@ export default function PocketTrackApp() {
         initialExpense={editingExpense}
       />
 
-      <ExpenseDialog 
-        open={expenseDialogOpen} 
-        onOpenChange={setExpenseDialogOpen} 
-        onSubmit={handleExpenseSubmit}
-        categories={categories}
-        currency={currency}
-        initialExpense={editingExpense}
-      />
-
       <CategoryDialog
         open={categoryDialogOpen}
         onOpenChange={setCategoryDialogOpen}
         onSubmit={handleCategorySubmit}
         initialCategory={editingCategory}
+      />
+
+      <PrivacyDialog
+        open={privacyDialogOpen}
+        onOpenChange={setPrivacyDialogOpen}
       />
     </div>
   );
