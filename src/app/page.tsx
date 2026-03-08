@@ -87,6 +87,13 @@ export default function PocketTrackApp() {
   const handleExportCSV = () => {
     if (expenses.length === 0) return;
 
+    // Privacy Consent Step
+    const hasConsent = confirm(
+      "Privacy Consent: You are about to export your financial data to a CSV file. Once downloaded, this file is stored on your device and is no longer protected by PocketTrack's local-first security. Do you consent to export your data?"
+    );
+
+    if (!hasConsent) return;
+
     const headers = ["Date", "Description", "Amount", "Currency", "Category", "Super Category"];
     const rows = expenses.map(e => {
       const cat = categories.find(c => c.id === e.categoryId)?.name || 'Uncategorized';
