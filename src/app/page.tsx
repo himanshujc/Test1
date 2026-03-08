@@ -5,10 +5,11 @@ import { useExpenses } from "@/hooks/use-expenses";
 import { DashboardView } from "@/components/DashboardView";
 import { ExpensesView } from "@/components/ExpensesView";
 import { CategoryView } from "@/components/CategoryView";
+import { UserGuide } from "@/components/UserGuide";
 import { ExpenseDialog } from "@/components/ExpenseDialog";
 import { CategoryDialog } from "@/components/CategoryDialog";
 import { AdBanner } from "@/components/AdBanner";
-import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2, ShieldCheck, Zap, Info, ScrollText, HeartHandshake } from "lucide-react";
+import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2, ShieldCheck, Zap, Info, ScrollText, HeartHandshake, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -65,7 +66,7 @@ export default function PocketTrackApp() {
     isLoaded 
   } = useExpenses();
 
-  const [activeTab, setActiveTab] = useState<"dashboard" | "expenses" | "categories" | "settings">("dashboard");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "expenses" | "categories" | "guide" | "settings">("dashboard");
   const [expenseDialogOpen, setExpenseDialogOpen] = useState(false);
   const [categoryDialogOpen, setCategoryDialogOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | undefined>(undefined);
@@ -159,6 +160,9 @@ export default function PocketTrackApp() {
             onDelete={deleteCategory}
           />
         )}
+        {activeTab === "guide" && (
+          <UserGuide />
+        )}
         {activeTab === "settings" && (
           <div className="p-6 space-y-10 pb-24">
              <div className="text-center">
@@ -226,6 +230,7 @@ export default function PocketTrackApp() {
                 </div>
 
                 <div className="space-y-3 pt-4">
+                  <Button variant="outline" className="w-full" onClick={() => setActiveTab("guide")}>View User Guide</Button>
                   <Button variant="outline" className="w-full">Export Data (CSV)</Button>
                   <Button 
                     variant="outline" 
@@ -246,7 +251,7 @@ export default function PocketTrackApp() {
                <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">© 2024 PocketTrack - Pocket Tracker App</p>
                <div className="flex justify-center gap-4 mt-2">
                  <button className="text-[10px] font-bold text-primary underline">Privacy Center</button>
-                 <button className="text-[10px] font-bold text-primary underline">Documentation</button>
+                 <button className="text-[10px] font-bold text-primary underline" onClick={() => setActiveTab("guide")}>App Guide</button>
                </div>
              </div>
           </div>
@@ -254,7 +259,7 @@ export default function PocketTrackApp() {
       </main>
 
       {/* Floating Action Button */}
-      {activeTab !== "categories" && activeTab !== "settings" && (
+      {activeTab !== "categories" && activeTab !== "settings" && activeTab !== "guide" && (
         <div className="absolute bottom-24 right-6 z-50">
           <Button 
             size="icon" 
@@ -288,12 +293,21 @@ export default function PocketTrackApp() {
           label="Folders"
         />
         <NavButton 
-          active={activeTab === "settings"} 
-          onClick={() => setActiveTab("settings")}
-          icon={<Settings2 className="w-6 h-6" />}
-          label="Settings"
+          active={activeTab === "guide" || activeTab === "settings"} 
+          onClick={() => setActiveTab(activeTab === "guide" ? "guide" : "settings")}
+          icon={activeTab === "guide" ? <BookOpen className="w-6 h-6" /> : <Settings2 className="w-6 h-6" />}
+          label={activeTab === "guide" ? "Guide" : "Settings"}
         />
       </nav>
+
+      <ExpenseDialog 
+        open={expenseDialogOpen} 
+        onOpenChange={setExpenseDialogOpen} 
+        onSubmit={handleExpenseSubmit}
+        categories={categories}
+        currency={currency}
+        initialExpense={editingExpense}
+      />
 
       <ExpenseDialog 
         open={expenseDialogOpen} 
