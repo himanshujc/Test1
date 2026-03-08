@@ -84,6 +84,33 @@ export default function PocketTrackApp() {
     </div>
   );
 
+  const handleExportCSV = () => {
+    if (expenses.length === 0) return;
+
+    const headers = ["Date", "Description", "Amount", "Currency", "Category", "Super Category"];
+    const rows = expenses.map(e => {
+      const cat = categories.find(c => c.id === e.categoryId)?.name || 'Uncategorized';
+      return [
+        e.date,
+        `"${(e.description || '').replace(/"/g, '""')}"`,
+        e.amount,
+        currency,
+        `"${cat}"`,
+        e.superCategory || 'Personal'
+      ].join(',');
+    });
+
+    const csvContent = [headers.join(','), ...rows].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `pockettrack_expenses_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleEditExpenseClick = (expense: Expense) => {
     setEditingExpense(expense);
     setExpenseDialogOpen(true);
@@ -245,7 +272,14 @@ export default function PocketTrackApp() {
 
                 <div className="space-y-3 pt-4">
                   <Button variant="outline" className="w-full" onClick={() => setActiveTab("guide")}>View User Guide</Button>
-                  <Button variant="outline" className="w-full">Export Data (CSV)</Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={handleExportCSV}
+                    disabled={expenses.length === 0}
+                  >
+                    Export Data (CSV)
+                  </Button>
                   <Button 
                     variant="outline" 
                     className="w-full text-destructive hover:bg-destructive/5"

@@ -1,5 +1,5 @@
+
 User-agent: *
 Allow: /
 
-# Sitemap would go here if available
-# Sitemap: https://pockettrack.app/sitemap.xml
+Sitemap: https://pockettrack.app/sitemap.xml
