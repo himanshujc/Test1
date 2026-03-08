@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -9,7 +8,7 @@ import { CategoryView } from "@/components/CategoryView";
 import { ExpenseDialog } from "@/components/ExpenseDialog";
 import { CategoryDialog } from "@/components/CategoryDialog";
 import { AdBanner } from "@/components/AdBanner";
-import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2 } from "lucide-react";
+import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2, ShieldCheck, Zap, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -17,8 +16,7 @@ import { cn } from "@/lib/utils";
 import { Expense, Category, SUPPORTED_CURRENCIES } from "@/lib/types";
 
 /**
- * PocketTrackLogo - A detailed SVG logo matching the cute orange wallet character from the user image.
- * Features: Orange wallet body, money sticking out, pencil, calendar, heart bubble, checkmark bubble, and sparkles.
+ * PocketTrackLogo - A detailed SVG logo matching the cute orange wallet character.
  */
 function PocketTrackLogo({ className }: { className?: string }) {
   return (
@@ -28,47 +26,26 @@ function PocketTrackLogo({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg" 
       className={className}
     >
-      {/* Background rounded square with amber gradient effect */}
       <rect width="1024" height="1024" rx="220" fill="#FBBF24"/>
-      
-      {/* Money sticking out of the wallet */}
       <rect x="340" y="240" width="120" height="200" rx="12" fill="#34D399" transform="rotate(-15 340 240)"/>
       <rect x="440" y="200" width="140" height="220" rx="12" fill="#10B981"/>
       <rect x="580" y="250" width="100" height="180" rx="12" fill="#60A5FA" transform="rotate(10 580 250)"/>
       <circle cx="510" cy="280" r="15" fill="#065F46" opacity="0.3"/>
-
-      {/* Wallet Body */}
       <path d="M212 420C212 364.772 256.772 320 312 320H712C767.228 320 812 364.772 812 420V670C812 725.228 767.228 770 712 770H312C256.772 770 212 725.228 212 670V420Z" fill="#F59E0B"/>
-      
-      {/* Top pocket fold detail */}
       <path d="M212 420C212 364.772 256.772 320 312 320H712C767.228 320 812 364.772 812 420H212Z" fill="#D97706" opacity="0.3"/>
-
-      {/* Eyes with white highlights */}
       <circle cx="412" cy="540" r="48" fill="#451A03"/>
       <circle cx="428" cy="522" r="14" fill="white"/>
       <circle cx="612" cy="540" r="48" fill="#451A03"/>
       <circle cx="628" cy="522" r="14" fill="white"/>
-      
-      {/* Blush cheeks */}
       <circle cx="330" cy="590" r="35" fill="#F87171" opacity="0.5"/>
       <circle cx="694" cy="590" r="35" fill="#F87171" opacity="0.5"/>
-      
-      {/* Happy Mouth */}
       <path d="M462 640C462 667.614 484.386 690 512 690C539.614 690 562 667.614 562 640H462Z" fill="#991B1B"/>
-      
-      {/* Wallet Strap and Clasp */}
       <path d="M720 500H812V590H740C728.954 590 720 581.046 720 570V500Z" fill="#D97706"/>
       <circle cx="785" cy="545" r="15" fill="#FBBF24"/>
-      
-      {/* Heart Accessory Bubble */}
       <circle cx="850" cy="200" r="90" fill="#EF4444" opacity="0.9"/>
       <path d="M850 230C850 230 890 190 890 165C890 150 875 140 865 140C855 140 850 150 850 150C850 150 845 140 835 140C825 140 810 150 810 165C810 190 850 230 850 230Z" fill="white"/>
-
-      {/* Checkmark Accessory Bubble */}
       <circle cx="170" cy="240" r="90" fill="#10B981" opacity="0.9"/>
       <path d="M130 240L155 265L210 210" stroke="white" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-
-      {/* Sparkles around the wallet */}
       <path d="M150 750L165 720L180 750L210 765L180 780L165 810L150 780L120 765L150 750Z" fill="white" opacity="0.9" />
       <path d="M900 450L910 430L920 450L940 460L920 470L910 490L900 470L880 460L900 450Z" fill="white" opacity="0.9" />
       <path d="M780 880L790 865L800 880L815 890L800 900L790 915L780 900L765 890L780 880Z" fill="white" opacity="0.9" />
@@ -186,46 +163,80 @@ export default function PocketTrackApp() {
           />
         )}
         {activeTab === "settings" && (
-          <div className="p-10 text-center space-y-6">
-             <Settings2 className="w-16 h-16 mx-auto opacity-20" />
-             <h2 className="text-xl font-headline font-bold">App Settings</h2>
+          <div className="p-6 space-y-10 pb-24">
+             <div className="text-center">
+                <Settings2 className="w-16 h-16 mx-auto opacity-20 mb-4" />
+                <h2 className="text-xl font-headline font-bold">App Settings</h2>
+                <p className="text-sm text-muted-foreground">Manage your Pocket Tracker preferences</p>
+             </div>
              
-             <div className="text-left space-y-2">
-                <Label>Default Currency</Label>
-                <Select value={currency} onValueChange={setCurrency}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select currency" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {SUPPORTED_CURRENCIES.map((c) => (
-                      <SelectItem key={c.symbol} value={c.symbol}>
-                        {c.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+             <div className="space-y-6">
+                <div className="space-y-2">
+                  <Label>Default Currency</Label>
+                  <Select value={currency} onValueChange={setCurrency}>
+                    <SelectTrigger className="w-full bg-white">
+                      <SelectValue placeholder="Select currency" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SUPPORTED_CURRENCIES.map((c) => (
+                        <SelectItem key={c.symbol} value={c.symbol}>
+                          {c.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Publisher Content for AdSense Approval */}
+                <div className="bg-white p-4 rounded-xl border border-gray-100 space-y-4">
+                  <div className="flex items-center gap-2 text-primary">
+                    <ShieldCheck className="w-5 h-5" />
+                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">Data Privacy</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    PocketTrack is a privacy-first Daily Expense Tracker. All your financial data is stored locally on your device using industry-standard local storage mechanisms. We do not transmit your transaction details to our servers, ensuring your pocket tracker remains yours and yours alone.
+                  </p>
+                </div>
+
+                <div className="bg-white p-4 rounded-xl border border-gray-100 space-y-4">
+                  <div className="flex items-center gap-2 text-primary">
+                    <Zap className="w-5 h-5" />
+                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">About PocketTrack</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    PocketTrack is the ultimate personal finance companion. Designed for simplicity, it helps you manage expenses across Personal, Family, and Professional (P&F) domains. By tracking daily, you gain the awareness needed to achieve your financial goals.
+                  </p>
+                </div>
+
+                <div className="space-y-3 pt-4">
+                  <Button variant="outline" className="w-full">Export Data (CSV)</Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full text-destructive hover:bg-destructive/5"
+                    onClick={() => {
+                      if (confirm("Are you sure? This will erase all local data.")) {
+                        localStorage.clear();
+                        window.location.reload();
+                      }
+                    }}
+                  >
+                    Reset All Data
+                  </Button>
+                </div>
              </div>
 
-             <div className="space-y-3">
-               <Button variant="outline" className="w-full">Export Data (CSV)</Button>
-               <Button 
-                variant="outline" 
-                className="w-full text-destructive hover:bg-destructive/5"
-                onClick={() => {
-                  if (confirm("Are you sure? This will erase all local data.")) {
-                    localStorage.clear();
-                    window.location.reload();
-                  }
-                }}
-              >
-                Reset All Data
-              </Button>
+             <div className="text-center pt-8 border-t">
+               <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">© 2024 PocketTrack - Pocket Tracker App</p>
+               <div className="flex justify-center gap-4 mt-2">
+                 <button className="text-[10px] font-bold text-primary underline">Privacy Policy</button>
+                 <button className="text-[10px] font-bold text-primary underline">Terms of Service</button>
+               </div>
              </div>
           </div>
         )}
       </main>
 
-      {/* Floating Action Button - Hidden on categories and settings tab */}
+      {/* Floating Action Button */}
       {activeTab !== "categories" && activeTab !== "settings" && (
         <div className="absolute bottom-24 right-6 z-50">
           <Button 
@@ -252,7 +263,7 @@ export default function PocketTrackApp() {
           icon={<ReceiptText className="w-6 h-6" />}
           label="Expenses"
         />
-        <div className="w-14" /> {/* Spacer for FAB */}
+        <div className="w-14" />
         <NavButton 
           active={activeTab === "categories"} 
           onClick={() => setActiveTab("categories")}
@@ -277,7 +288,7 @@ export default function PocketTrackApp() {
       />
 
       <CategoryDialog
-        open={categoryDialogOpen}
+        open={open}
         onOpenChange={setCategoryDialogOpen}
         onSubmit={handleCategorySubmit}
         initialCategory={editingCategory}

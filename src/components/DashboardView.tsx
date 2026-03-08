@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -9,7 +8,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid 
 } from "recharts";
 import { getSpendingInsightSummary } from "@/ai/flows/spending-insight-summary";
-import { Sparkles, Info, Filter } from "lucide-react";
+import { Sparkles, Info, Filter, BookOpen, Lightbulb } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AdSenseUnit } from "./AdSenseUnit";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -31,7 +30,6 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
 
   const totalSpending = filteredExpenses.reduce((sum, e) => sum + e.amount, 0);
 
-  // Group by category
   const categoryData = categories.map(cat => {
     const amount = filteredExpenses
       .filter(e => e.categoryId === cat.id)
@@ -39,7 +37,6 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
     return { name: cat.name, value: amount, color: cat.color };
   }).filter(d => d.value > 0);
 
-  // Group by date (last 7 days)
   const last7Days = [...Array(7)].map((_, i) => {
     const d = new Date();
     d.setDate(d.getDate() - i);
@@ -60,9 +57,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
       try {
         const breakdown: Record<string, number> = {};
         categoryData.forEach(d => breakdown[d.name] = d.value);
-        
         const periodDesc = filter === 'All' ? "this month (overall)" : `this month for ${filter}`;
-        
         const res = await getSpendingInsightSummary({
           periodDescription: periodDesc,
           totalSpending,
@@ -128,13 +123,41 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
             <div className="space-y-2">
               <Skeleton className="h-4 w-full" />
               <Skeleton className="h-4 w-[90%]" />
-              <Skeleton className="h-4 w-[80%]" />
             </div>
           ) : insight ? (
             <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">{insight}</p>
           ) : (
-            <p className="text-sm text-muted-foreground italic">Add {filter === 'All' ? 'expenses' : `${filter} expenses`} to see AI-powered financial insights.</p>
+            <div className="space-y-2">
+               <p className="text-sm text-muted-foreground font-medium">Tracking {filter === 'All' ? 'Everyday' : filter} Expenses</p>
+               <p className="text-[11px] text-muted-foreground/80 leading-relaxed italic">
+                 Start adding expenses to generate AI-powered insights. Our Daily Expense Tracker analyzes your habits to provide actionable financial advice tailored to your pocket tracker data.
+               </p>
+            </div>
           )}
+        </CardContent>
+      </Card>
+
+      {/* Static Publisher Content Section for AdSense Approval */}
+      <Card className="border-none shadow-sm bg-blue-50/30">
+        <CardHeader className="pb-2">
+          <div className="flex items-center gap-2 text-primary">
+            <Lightbulb className="w-4 h-4" />
+            <CardTitle className="text-xs font-headline uppercase tracking-wide">Financial Wellness Tips</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="space-y-1">
+            <h4 className="text-[11px] font-bold text-foreground">The 50/30/20 Rule</h4>
+            <p className="text-[10px] text-muted-foreground leading-relaxed">
+              A classic budgeting method: 50% for Needs, 30% for Wants, and 20% for Savings or Debt repayment. PocketTrack helps you visualize this split effortlessly.
+            </p>
+          </div>
+          <div className="space-y-1">
+            <h4 className="text-[11px] font-bold text-foreground">Track Every Penny</h4>
+            <p className="text-[10px] text-muted-foreground leading-relaxed">
+              Successful pocket tracking requires consistency. Log even small purchases like coffee or snacks to get a true picture of your "Miscellaneous" spending.
+            </p>
+          </div>
         </CardContent>
       </Card>
 
@@ -158,55 +181,46 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
             {categoryData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Pie
-                    data={categoryData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={80}
-                    paddingAngle={5}
-                    dataKey="value"
-                  >
+                  <Pie data={categoryData} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
                     {categoryData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <RechartsTooltip 
-                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                    formatter={(value: number) => [`${currency} ${value.toFixed(2)}`, 'Amount']}
-                  />
+                  <RechartsTooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} formatter={(value: number) => [`${currency} ${value.toFixed(2)}`, 'Amount']} />
                   <Legend verticalAlign="bottom" height={36}/>
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full flex items-center justify-center text-muted-foreground italic text-sm">
-                No data for this filter
+              <div className="h-full flex flex-col items-center justify-center gap-3">
+                 <div className="p-3 bg-muted rounded-full">
+                    <BookOpen className="w-8 h-8 opacity-20" />
+                 </div>
+                 <p className="text-xs text-muted-foreground text-center px-8 leading-relaxed">
+                   Once you add expenses, this chart will show your spending distribution. Use your Daily Expense Tracker to keep tabs on your budget.
+                 </p>
               </div>
             )}
           </CardContent>
         </Card>
 
-        <Card className="border-none shadow-sm">
-          <CardHeader>
-            <CardTitle className="text-lg font-headline">7-Day Trend</CardTitle>
-            <CardDescription>Habits for {filter}</CardDescription>
-          </CardHeader>
-          <CardContent className="h-[250px] pt-0">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={last7Days}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-                <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 10 }} dy={10} />
-                <YAxis hide />
-                <RechartsTooltip 
-                  cursor={{ fill: 'transparent' }}
-                  contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                  formatter={(value: number) => [`${currency} ${value.toFixed(2)}`, 'Amount']}
-                />
-                <Bar dataKey="amount" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} barSize={24} />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+        {/* Static Educational Section */}
+        <div className="px-2 py-4 space-y-4">
+          <h3 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Pocket Tracker Guide</h3>
+          <div className="grid grid-cols-1 gap-3">
+            <div className="p-4 bg-white rounded-xl border border-gray-100">
+               <h4 className="text-[11px] font-bold text-primary mb-1">Why Track Daily?</h4>
+               <p className="text-[10px] text-muted-foreground leading-relaxed">
+                 Daily tracking prevents "financial leakage"—those small, forgotten expenses that add up to hundreds each month. PocketTrack makes logging instant so you never miss a beat.
+               </p>
+            </div>
+            <div className="p-4 bg-white rounded-xl border border-gray-100">
+               <h4 className="text-[11px] font-bold text-primary mb-1">Categorization Strategy</h4>
+               <p className="text-[10px] text-muted-foreground leading-relaxed">
+                 Use the Super Category filter (Personal vs. Family) to separate shared costs from individual ones. This is essential for accurate pocket tracking in household budgets.
+               </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
