@@ -126,7 +126,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
         </CardContent>
       </Card>
 
-      {/* Static Publisher Content Section 1: Comprehensive Financial Education */}
+      {/* Financial Education Section - Essential Publisher Content for AdSense */}
       <Card className="border-none shadow-sm bg-blue-50/40">
         <CardHeader className="pb-2">
           <div className="flex items-center gap-2 text-primary">
@@ -138,33 +138,19 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
           <div className="space-y-2">
             <h4 className="text-xs font-bold text-foreground">Mastering the 50/30/20 Budgeting Framework</h4>
             <p className="text-[11px] text-muted-foreground leading-relaxed">
-              Effective financial management is built on a solid foundation. The 50/30/20 rule is a world-renowned budgeting technique that simplifies your monthly cash flow. It suggests that 50% of your after-tax income should cover your absolute "Needs" like housing, groceries, and insurance. 30% is allocated for "Wants"—the lifestyle choices like hobbies and entertainment. Finally, 20% must be channeled into "Savings" and debt reduction. PocketTrack helps you visualize these percentages in real-time, giving you the clarity needed to adjust your lifestyle and secure your future.
+              Effective financial management is built on a solid foundation. The 50/30/20 rule is a world-renowned budgeting technique that simplifies your monthly cash flow. It suggests that 50% of your after-tax income should cover your absolute "Needs" like housing, groceries, and insurance. 30% is allocated for "Wants"—lifestyle choices. Finally, 20% must be channeled into "Savings" and debt reduction.
             </p>
           </div>
           <div className="space-y-2">
             <h4 className="text-xs font-bold text-foreground">The Psychological Impact of Daily Tracking</h4>
             <p className="text-[11px] text-muted-foreground leading-relaxed">
-              Studies in behavioral finance show that the mere act of recording an expense reduces impulse spending. By using a pocket tracker, you create a "mindfulness gap" between the desire to purchase and the actual transaction. This habit cultivates long-term discipline, helping you prioritize value over convenience. PocketTrack's intuitive interface is designed to make this daily habit seamless and rewarding.
+              Behavioral finance shows that recording an expense reduces impulse spending. By using a pocket tracker, you create a "mindfulness gap" between the desire to purchase and the actual transaction. This habit cultivates long-term discipline and prioritizes value over convenience.
             </p>
           </div>
         </CardContent>
       </Card>
 
-      {/* Official AdSense Unit Surround by Content */}
-      <div className="bg-white border border-gray-100 rounded-xl p-3 space-y-3 shadow-sm">
-        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase font-bold tracking-widest px-1">
-          <Info className="w-3 h-3" />
-          Sponsored Financial Services
-        </div>
-        <AdSenseUnit slot="3927802258" />
-        <div className="px-1">
-          <p className="text-[9px] text-muted-foreground leading-tight italic">
-            AdSense advertisements support the development of this free daily expense tracker. We select partners who provide value to our financial community.
-          </p>
-        </div>
-      </div>
-
-      {/* Static Publisher Content Section 2: Advanced Wealth Building */}
+      {/* Wealth Building Section - Essential Publisher Content for AdSense */}
       <Card className="border-none shadow-sm bg-green-50/40">
         <CardHeader className="pb-2">
           <div className="flex items-center gap-2 text-green-700">
@@ -176,19 +162,19 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
           <div className="space-y-2">
             <h4 className="text-xs font-bold text-foreground">Strategic Emergency Fund Planning</h4>
             <p className="text-[11px] text-muted-foreground leading-relaxed">
-              A robust emergency fund is the ultimate insurance policy against life's uncertainties. Financial experts generally recommend maintaining a liquid cash reserve equal to 3 to 6 months of essential living expenses. Use the "Family" and "Personal" filters in PocketTrack to calculate your baseline survival cost. Knowing this number empowers you to build a buffer that protects your family from medical emergencies, car repairs, or unexpected job transitions.
+              A robust emergency fund is the ultimate insurance policy. Experts generally recommend maintaining a liquid cash reserve equal to 3 to 6 months of essential living expenses. Use the "Family" and "Personal" filters in PocketTrack to calculate your baseline survival cost.
             </p>
           </div>
           <div className="space-y-2">
             <h4 className="text-xs font-bold text-foreground">The compounding Effect of Small Savings</h4>
             <p className="text-[11px] text-muted-foreground leading-relaxed">
-              Often referred to as the eighth wonder of the world, compound interest works best when you have consistent, surplus cash flow. By identifying and eliminating $5 of daily waste through your pocket tracker, you could potentially save $150 per month. If invested wisely at a 7% annual return, that small daily habit could grow to over $75,000 in 20 years. PocketTrack isn't just about tracking what's gone; it's about finding what's possible.
+              Compound interest works best when you have consistent, surplus cash flow. Identifying and eliminating small wastes through your pocket tracker can grow into significant wealth over decades. PocketTrack helps you find what's possible.
             </p>
           </div>
         </CardContent>
       </Card>
 
-      {/* Static Publisher Content Section 3: Legal & Mission */}
+      {/* Mission & Transparency Section */}
       <Card className="border-none shadow-sm border-t-2 border-primary/20 bg-muted/20">
         <CardHeader className="pb-2">
           <div className="flex items-center gap-2 text-muted-foreground">
@@ -198,7 +184,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-[10px] text-muted-foreground leading-relaxed">
-            PocketTrack is dedicated to providing high-quality financial tracking tools for the global community. Our mission is to democratize financial literacy by offering an ad-supported, zero-cost platform for all. We believe that everyone deserves the tools to manage their money effectively, regardless of their income level.
+            PocketTrack is dedicated to providing high-quality financial tracking tools for the global community. Our mission is to democratize financial literacy by offering an ad-supported, zero-cost platform for all.
           </p>
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-primary/60" />
@@ -207,7 +193,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
         </CardContent>
       </Card>
 
-      {/* Charts with Placeholder/Educational Empty State */}
+      {/* Charts Section */}
       <div className="grid grid-cols-1 gap-6">
         <Card className="border-none shadow-sm">
           <CardHeader>
@@ -235,7 +221,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
                  <div className="text-center px-6">
                     <p className="text-xs font-bold text-foreground mb-1">Visualizing Your Habits</p>
                     <p className="text-[10px] text-muted-foreground leading-relaxed">
-                      Once you log your transactions, this area will transform into an interactive breakdown. Use your Daily Expense Tracker to classify costs and discover where your money really goes.
+                      Once you log your transactions, this area will transform into an interactive breakdown.
                     </p>
                  </div>
               </div>

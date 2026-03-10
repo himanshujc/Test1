@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /api/
 
-Sitemap: https://pockettrack.app/sitemap.xml
+Sitemap: https://pockettrack.io/sitemap.xml
