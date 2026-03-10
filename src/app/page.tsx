@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -11,7 +10,7 @@ import { ExpenseDialog } from "@/components/ExpenseDialog";
 import { CategoryDialog } from "@/components/CategoryDialog";
 import { PrivacyDialog } from "@/components/PrivacyDialog";
 import { AdBanner } from "@/components/AdBanner";
-import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2, ShieldCheck, Zap, Info, ScrollText, HeartHandshake, BookOpen } from "lucide-react";
+import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2, ShieldCheck, Zap, Info, ScrollText, HeartHandshake, BookOpen, Fingerprint } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -183,7 +182,7 @@ export default function PocketTrackApp() {
               PocketTrack – Free Daily Expense Tracker
             </h2>
             <p className="text-[13px] text-muted-foreground font-medium leading-relaxed max-w-[300px] mx-auto">
-              Track your spending, analyze your habits, and manage your personal finances easily.
+              Track your spending, analyze your habits, and manage your personal finances easily with our ad-supported pocket tracker.
             </p>
           </div>
         )}
@@ -215,8 +214,8 @@ export default function PocketTrackApp() {
           <div className="p-6 space-y-10 pb-24">
              <div className="text-center">
                 <Settings2 className="w-16 h-16 mx-auto opacity-20 mb-4" />
-                <h2 className="text-xl font-headline font-bold">App Settings</h2>
-                <p className="text-sm text-muted-foreground">Manage your Pocket Tracker preferences</p>
+                <h2 className="text-xl font-headline font-bold">App Settings & Info</h2>
+                <p className="text-sm text-muted-foreground">Manage your Pocket Tracker preferences and learn about our mission.</p>
              </div>
              
              <div className="space-y-6">
@@ -240,14 +239,14 @@ export default function PocketTrackApp() {
                 <div className="bg-white p-5 rounded-xl border border-gray-100 space-y-4 shadow-sm">
                   <div className="flex items-center gap-2 text-primary">
                     <ShieldCheck className="w-5 h-5" />
-                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">Data Privacy Policy</h3>
+                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">Data Privacy & Security Policy</h3>
                   </div>
                   <div className="space-y-3">
                     <p className="text-[11px] text-muted-foreground leading-relaxed">
-                      PocketTrack is committed to providing a secure and private daily expense tracking experience. We believe that your financial history is one of your most sensitive assets. That's why our application architecture is built on a "Zero-Server" data principle for user transactions.
+                      PocketTrack is built on the foundation of absolute financial privacy. In an era of data harvesting, we stand apart by utilizing a "Zero-Server" architecture for all personal transactions. Your budget, categories, and specific spending habits never leave your device.
                     </p>
                     <p className="text-[11px] text-muted-foreground leading-relaxed">
-                      All transactional data, category customizations, and currency preferences are stored directly on your physical device using your browser's persistent storage. We do not maintain a database of your personal expenses on our servers, ensuring that your data remains under your absolute control at all times.
+                      We use the browser's persistent storage (IndexedDB/LocalStorage) to keep your records local. This means you are the sole custodian of your financial data. We do not maintain user accounts or cloud databases for expenses, ensuring that your sensitive information remains private even from us.
                     </p>
                   </div>
                 </div>
@@ -255,14 +254,14 @@ export default function PocketTrackApp() {
                 <div className="bg-white p-5 rounded-xl border border-gray-100 space-y-4 shadow-sm">
                   <div className="flex items-center gap-2 text-primary">
                     <ScrollText className="w-5 h-5" />
-                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">Terms of Service</h3>
+                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">Terms of Service & Usage</h3>
                   </div>
                   <div className="space-y-3">
                     <p className="text-[11px] text-muted-foreground leading-relaxed">
-                      By using PocketTrack, you agree to use the service for lawful personal financial management purposes. Our tool is designed as a tracking aid and should not be considered professional financial advice. 
+                      PocketTrack is a decision-support tool designed for personal financial tracking. By using this application, you acknowledge that it is provided for informational purposes only. It is not intended to serve as professional tax, legal, or investment advice.
                     </p>
                     <p className="text-[11px] text-muted-foreground leading-relaxed">
-                      The AI-powered insights provided by PocketTrack are generated based on the data you input and are intended to provide general perspective on spending habits. Users are responsible for verifying their own financial records and making informed decisions based on their unique circumstances.
+                      The AI-powered classification and insight summaries are generated algorithms and should be verified against your actual records. Users are responsible for maintaining their own backups via the CSV export tool provided in this menu.
                     </p>
                   </div>
                 </div>
@@ -270,40 +269,55 @@ export default function PocketTrackApp() {
                 <div className="bg-white p-5 rounded-xl border border-gray-100 space-y-4 shadow-sm">
                   <div className="flex items-center gap-2 text-primary">
                     <HeartHandshake className="w-5 h-5" />
-                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">Our Mission</h3>
+                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">Our Global Mission</h3>
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-[11px] text-muted-foreground leading-relaxed">
+                      Our mission is to empower individuals globally with the tools of financial literacy. We believe that clarity in spending is the first step toward financial freedom. By providing a free, ad-supported pocket tracker, we remove the financial barriers to high-quality money management tools.
+                    </p>
+                    <p className="text-[11px] text-muted-foreground leading-relaxed">
+                      Every update we push is focused on making tracking faster, smarter, and more private. We believe in a world where everyone has the awareness to build a secure financial future for themselves and their families.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-5 rounded-xl border border-gray-100 space-y-4 shadow-sm">
+                  <div className="flex items-center gap-2 text-primary">
+                    <Fingerprint className="w-5 h-5" />
+                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">AdSense & Advertiser Disclosure</h3>
                   </div>
                   <p className="text-[11px] text-muted-foreground leading-relaxed">
-                    Our mission is to democratize financial literacy. We believe that by providing simple, accessible, and AI-enhanced pocket tracking tools, we can help individuals and families achieve greater financial freedom. Every transaction logged is a step toward a more intentional and secure financial future.
+                    PocketTrack is made free for all users through the support of Google AdSense and our advertising partners. These ads allow us to maintain and improve the app without charging a subscription fee. We strive to only work with advertisers that provide value to our financially-conscious audience.
                   </p>
                 </div>
 
                 <div className="space-y-3 pt-4">
-                  <Button variant="outline" className="w-full" onClick={() => setActiveTab("guide")}>View User Guide</Button>
+                  <Button variant="outline" className="w-full" onClick={() => setActiveTab("guide")}>Read Full User Guide</Button>
                   <Button 
                     variant="outline" 
                     className="w-full"
                     onClick={handleExportCSV}
                     disabled={expenses.length === 0}
                   >
-                    Export Data (CSV)
+                    Export All Data (CSV)
                   </Button>
                   <Button 
                     variant="outline" 
                     className="w-full text-destructive hover:bg-destructive/5"
                     onClick={() => {
-                      if (confirm("Are you sure? This will erase all local data.")) {
+                      if (confirm("Are you sure? This will permanently erase all transaction and category data from this device.")) {
                         localStorage.clear();
                         window.location.reload();
                       }
                     }}
                   >
-                    Reset All Data
+                    Reset & Clear All Data
                   </Button>
                 </div>
              </div>
 
              <div className="text-center pt-8 border-t">
-               <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">© 2024 PocketTrack - Pocket Tracker App</p>
+               <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-widest">© 2024 PocketTrack - Professional Pocket Tracker App</p>
                <div className="flex justify-center gap-4 mt-2">
                  <button 
                   className="text-[10px] font-bold text-primary underline"
@@ -311,7 +325,7 @@ export default function PocketTrackApp() {
                  >
                    Privacy Center
                  </button>
-                 <button className="text-[10px] font-bold text-primary underline" onClick={() => setActiveTab("guide")}>App Guide</button>
+                 <button className="text-[10px] font-bold text-primary underline" onClick={() => setActiveTab("guide")}>Help & Documentation</button>
                </div>
              </div>
           </div>
@@ -356,7 +370,7 @@ export default function PocketTrackApp() {
           active={activeTab === "guide" || activeTab === "settings"} 
           onClick={() => setActiveTab(activeTab === "guide" ? "guide" : "settings")}
           icon={activeTab === "guide" ? <BookOpen className="w-6 h-6" /> : <Settings2 className="w-6 h-6" />}
-          label={activeTab === "guide" ? "Guide" : "Settings"}
+          label={activeTab === "guide" ? "Help" : "Info"}
         />
       </nav>
 

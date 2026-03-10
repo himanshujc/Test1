@@ -7,7 +7,7 @@ import {
   PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip as RechartsTooltip
 } from "recharts";
 import { getSpendingInsightSummary } from "@/ai/flows/spending-insight-summary";
-import { Sparkles, Info, Filter, BookOpen, Lightbulb, TrendingUp, ShieldCheck } from "lucide-react";
+import { Sparkles, Info, Filter, BookOpen, Lightbulb, TrendingUp, ShieldCheck, GraduationCap, Gavel } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AdSenseUnit } from "./AdSenseUnit";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -126,64 +126,88 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
         </CardContent>
       </Card>
 
-      {/* Static Publisher Content Section 1: Financial Wellness */}
-      <Card className="border-none shadow-sm bg-blue-50/30">
+      {/* Static Publisher Content Section 1: Comprehensive Financial Education */}
+      <Card className="border-none shadow-sm bg-blue-50/40">
         <CardHeader className="pb-2">
           <div className="flex items-center gap-2 text-primary">
-            <Lightbulb className="w-4 h-4" />
-            <CardTitle className="text-xs font-headline uppercase tracking-wide">Financial Wellness Guide</CardTitle>
+            <GraduationCap className="w-5 h-5" />
+            <CardTitle className="text-sm font-headline uppercase tracking-wide">Financial Education Hub</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-foreground">Understanding the 50/30/20 Rule</h4>
-            <p className="text-[10px] text-muted-foreground leading-relaxed">
-              Achieving financial stability starts with a structured budget. The 50/30/20 rule suggests allocating 50% of your income to needs (rent, groceries, utilities), 30% to wants (dining out, entertainment), and 20% to savings or debt repayment. PocketTrack allows you to tag expenses so you can see exactly how your spending aligns with this classic financial framework.
+        <CardContent className="space-y-5">
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold text-foreground">Mastering the 50/30/20 Budgeting Framework</h4>
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              Effective financial management is built on a solid foundation. The 50/30/20 rule is a world-renowned budgeting technique that simplifies your monthly cash flow. It suggests that 50% of your after-tax income should cover your absolute "Needs" like housing, groceries, and insurance. 30% is allocated for "Wants"—the lifestyle choices like hobbies and entertainment. Finally, 20% must be channeled into "Savings" and debt reduction. PocketTrack helps you visualize these percentages in real-time, giving you the clarity needed to adjust your lifestyle and secure your future.
             </p>
           </div>
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-foreground">The Power of Micro-Tracking</h4>
-            <p className="text-[10px] text-muted-foreground leading-relaxed">
-              Financial leakage often occurs through small, repetitive purchases. A daily pocket tracker helps you identify "the latte factor"—small daily costs that can add up to thousands of dollars over a year. By logging every transaction, you build the awareness necessary to reclaim control over your discretionary spending.
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold text-foreground">The Psychological Impact of Daily Tracking</h4>
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              Studies in behavioral finance show that the mere act of recording an expense reduces impulse spending. By using a pocket tracker, you create a "mindfulness gap" between the desire to purchase and the actual transaction. This habit cultivates long-term discipline, helping you prioritize value over convenience. PocketTrack's intuitive interface is designed to make this daily habit seamless and rewarding.
             </p>
           </div>
         </CardContent>
       </Card>
 
-      {/* Official AdSense Unit */}
-      <div className="bg-white border border-gray-100 rounded-xl p-3 flex flex-col items-center justify-center min-h-[120px] shadow-sm">
-        <div className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase font-bold tracking-widest mb-2 w-full justify-start">
+      {/* Official AdSense Unit Surround by Content */}
+      <div className="bg-white border border-gray-100 rounded-xl p-3 space-y-3 shadow-sm">
+        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground uppercase font-bold tracking-widest px-1">
           <Info className="w-3 h-3" />
-          Sponsored Advertisement
+          Sponsored Financial Services
         </div>
         <AdSenseUnit slot="3927802258" />
+        <div className="px-1">
+          <p className="text-[9px] text-muted-foreground leading-tight italic">
+            AdSense advertisements support the development of this free daily expense tracker. We select partners who provide value to our financial community.
+          </p>
+        </div>
       </div>
 
-      {/* Static Publisher Content Section 2: Wealth Building */}
-      <Card className="border-none shadow-sm bg-green-50/30">
+      {/* Static Publisher Content Section 2: Advanced Wealth Building */}
+      <Card className="border-none shadow-sm bg-green-50/40">
         <CardHeader className="pb-2">
           <div className="flex items-center gap-2 text-green-700">
-            <TrendingUp className="w-4 h-4" />
-            <CardTitle className="text-xs font-headline uppercase tracking-wide">Wealth Building Strategies</CardTitle>
+            <TrendingUp className="w-5 h-5" />
+            <CardTitle className="text-sm font-headline uppercase tracking-wide">Wealth Building Strategies</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-foreground">Building an Emergency Fund</h4>
-            <p className="text-[10px] text-muted-foreground leading-relaxed">
-              Experts recommend having 3-6 months of essential living expenses saved in an accessible account. Use the "Personal" filter in PocketTrack to calculate your average monthly survival cost. This number serves as your target for a fully-funded emergency buffer, protecting you from unexpected life events.
+        <CardContent className="space-y-5">
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold text-foreground">Strategic Emergency Fund Planning</h4>
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              A robust emergency fund is the ultimate insurance policy against life's uncertainties. Financial experts generally recommend maintaining a liquid cash reserve equal to 3 to 6 months of essential living expenses. Use the "Family" and "Personal" filters in PocketTrack to calculate your baseline survival cost. Knowing this number empowers you to build a buffer that protects your family from medical emergencies, car repairs, or unexpected job transitions.
             </p>
           </div>
-          <div className="space-y-1">
-            <h4 className="text-[11px] font-bold text-foreground">Tracking Family vs. Personal Growth</h4>
-            <p className="text-[10px] text-muted-foreground leading-relaxed">
-              Managing a household requires distinguishing between communal family costs and individual professional expenses. Our "Super Category" feature helps families coordinate their budgets while maintaining individual financial autonomy, a key component of long-term financial harmony.
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold text-foreground">The compounding Effect of Small Savings</h4>
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              Often referred to as the eighth wonder of the world, compound interest works best when you have consistent, surplus cash flow. By identifying and eliminating $5 of daily waste through your pocket tracker, you could potentially save $150 per month. If invested wisely at a 7% annual return, that small daily habit could grow to over $75,000 in 20 years. PocketTrack isn't just about tracking what's gone; it's about finding what's possible.
             </p>
           </div>
         </CardContent>
       </Card>
 
-      {/* Charts */}
+      {/* Static Publisher Content Section 3: Legal & Mission */}
+      <Card className="border-none shadow-sm border-t-2 border-primary/20 bg-muted/20">
+        <CardHeader className="pb-2">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Gavel className="w-5 h-5" />
+            <CardTitle className="text-xs font-headline uppercase tracking-wide">Mission & Transparency</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-[10px] text-muted-foreground leading-relaxed">
+            PocketTrack is dedicated to providing high-quality financial tracking tools for the global community. Our mission is to democratize financial literacy by offering an ad-supported, zero-cost platform for all. We believe that everyone deserves the tools to manage their money effectively, regardless of their income level.
+          </p>
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-primary/60" />
+            <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">Privacy Verified: Local Storage Only</span>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Charts with Placeholder/Educational Empty State */}
       <div className="grid grid-cols-1 gap-6">
         <Card className="border-none shadow-sm">
           <CardHeader>
@@ -208,29 +232,16 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
                  <div className="p-3 bg-muted rounded-full">
                     <BookOpen className="w-8 h-8 opacity-20" />
                  </div>
-                 <p className="text-xs text-muted-foreground text-center px-8 leading-relaxed">
-                   Once you add expenses, this chart will show your spending distribution. Use your Daily Expense Tracker to keep tabs on your budget.
-                 </p>
+                 <div className="text-center px-6">
+                    <p className="text-xs font-bold text-foreground mb-1">Visualizing Your Habits</p>
+                    <p className="text-[10px] text-muted-foreground leading-relaxed">
+                      Once you log your transactions, this area will transform into an interactive breakdown. Use your Daily Expense Tracker to classify costs and discover where your money really goes.
+                    </p>
+                 </div>
               </div>
             )}
           </CardContent>
         </Card>
-
-        {/* Final Educational Section for AdSense Crawlers */}
-        <div className="px-2 py-4 space-y-4">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-primary" />
-            <h3 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Privacy & Safety First</h3>
-          </div>
-          <div className="grid grid-cols-1 gap-3">
-            <div className="p-4 bg-white rounded-xl border border-gray-100">
-               <h4 className="text-[11px] font-bold text-primary mb-1">Local Data Storage</h4>
-               <p className="text-[10px] text-muted-foreground leading-relaxed">
-                 PocketTrack respects your financial privacy. Unlike traditional trackers that sync your sensitive data to the cloud, our application uses advanced local-first technology. Your expenses are stored securely in your browser's private storage, ensuring that your financial details never leave your device.
-               </p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
