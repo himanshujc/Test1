@@ -197,7 +197,7 @@ export function DashboardView({ expenses, categories, currency }: DashboardViewP
       <div className="grid grid-cols-1 gap-6">
         <Card className="border-none shadow-sm">
           <CardHeader>
-            <CardTitle className="text-lg font-headline">Category Breakdown</CardTitle>
+            <CardTitle className="text-lg font-headline">Expense Breakdown</CardTitle>
             <CardDescription>{filter === 'All' ? 'Overall' : filter} distribution</CardDescription>
           </CardHeader>
           <CardContent className="h-[250px] pt-0">
