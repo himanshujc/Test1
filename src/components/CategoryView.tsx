@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Category } from "@/lib/types";
@@ -79,6 +78,17 @@ export function CategoryView({ categories, onAdd, onEdit, onDelete }: CategoryVi
             </Card>
           );
         })}
+      </div>
+
+      {/* AdSense Publisher Content at bottom of Categories */}
+      <div className="mt-12 p-6 bg-muted/30 rounded-2xl space-y-4">
+        <h4 className="text-xs font-bold uppercase tracking-wide text-foreground">The Power of Organization</h4>
+        <p className="text-[11px] text-muted-foreground leading-relaxed">
+          Effective categorization is the key to identifying trends. By grouping your expenses into logical folders like 
+          "Fixed Costs," "Variable Leisure," and "Life Maintenance," you gain the clarity needed to make informed 
+          budgeting decisions. PocketTrack's custom folders allow you to mirror your real-world priorities 
+          digitally, ensuring your tracker works exactly the way your mind does.
+        </p>
       </div>
     </div>
   );

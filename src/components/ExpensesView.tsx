@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Expense, Category } from "@/lib/types";
@@ -109,7 +108,18 @@ export function ExpensesView({ expenses, categories, currency, onDelete, onEdit 
             <LayoutGrid className="w-10 h-10 opacity-20" />
           </div>
           <h3 className="font-headline font-semibold text-lg mb-2">No expenses yet</h3>
-          <p className="text-sm">Tap the '+' button to start tracking your spending habits!</p>
+          <p className="text-sm mb-6">Tap the '+' button to start tracking your spending habits!</p>
+          
+          {/* AdSense Publisher Content for empty state */}
+          <div className="mt-8 pt-8 border-t border-muted w-full space-y-4">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-foreground">Why Track Daily?</h4>
+            <p className="text-[11px] leading-relaxed text-muted-foreground italic">
+              "A small leak will sink a great ship." — Benjamin Franklin.
+              Tracking every transaction, no matter how small, is the cornerstone of financial awareness. 
+              By recording your daily coffee, commute, or grocery run, you transform vague spending into 
+              concrete data, allowing you to build a more secure financial future.
+            </p>
+          </div>
         </div>
       )}
     </div>
