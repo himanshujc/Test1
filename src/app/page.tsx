@@ -9,7 +9,6 @@ import { UserGuide } from "@/components/UserGuide";
 import { ExpenseDialog } from "@/components/ExpenseDialog";
 import { CategoryDialog } from "@/components/CategoryDialog";
 import { PrivacyDialog } from "@/components/PrivacyDialog";
-import { FeedbackDialog } from "@/components/FeedbackDialog";
 import { AdBanner } from "@/components/AdBanner";
 import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2, ShieldCheck, Zap, Info, ScrollText, HeartHandshake, BookOpen, Fingerprint, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -72,7 +71,6 @@ export default function PocketTrackApp() {
   const [expenseDialogOpen, setExpenseDialogOpen] = useState(false);
   const [categoryDialogOpen, setCategoryDialogOpen] = useState(false);
   const [privacyDialogOpen, setPrivacyDialogOpen] = useState(false);
-  const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | undefined>(undefined);
   const [editingCategory, setEditingCategory] = useState<Category | undefined>(undefined);
 
@@ -238,6 +236,17 @@ export default function PocketTrackApp() {
                 </div>
 
                 {/* Detailed Publisher Content Sections for AdSense Approval */}
+                <div className="bg-white p-5 rounded-xl border border-gray-100 space-y-4 shadow-sm text-center">
+                  <div className="flex flex-col items-center gap-2 text-primary">
+                    <Mail className="w-6 h-6 mb-1" />
+                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">Support & Feedback</h3>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    Reach out to us directly via email for Support & FeedBack : <br />
+                    <a href="mailto:himanshu.chhatbar@gmail.com" className="font-bold text-primary underline">himanshu.chhatbar@gmail.com</a>
+                  </p>
+                </div>
+
                 <div className="bg-white p-5 rounded-xl border border-gray-100 space-y-4 shadow-sm">
                   <div className="flex items-center gap-2 text-primary">
                     <ShieldCheck className="w-5 h-5" />
@@ -294,10 +303,6 @@ export default function PocketTrackApp() {
                 </div>
 
                 <div className="space-y-3 pt-4">
-                  <Button variant="outline" className="w-full gap-2" onClick={() => setFeedbackDialogOpen(true)}>
-                    <Mail className="w-4 h-4" />
-                    Email Support
-                  </Button>
                   <Button variant="outline" className="w-full" onClick={() => setActiveTab("guide")}>Read Full User Guide</Button>
                   <Button 
                     variant="outline" 
@@ -399,11 +404,6 @@ export default function PocketTrackApp() {
       <PrivacyDialog
         open={privacyDialogOpen}
         onOpenChange={setPrivacyDialogOpen}
-      />
-
-      <FeedbackDialog
-        open={feedbackDialogOpen}
-        onOpenChange={setFeedbackDialogOpen}
       />
     </div>
   );
