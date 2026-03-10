@@ -9,8 +9,9 @@ import { UserGuide } from "@/components/UserGuide";
 import { ExpenseDialog } from "@/components/ExpenseDialog";
 import { CategoryDialog } from "@/components/CategoryDialog";
 import { PrivacyDialog } from "@/components/PrivacyDialog";
+import { FeedbackDialog } from "@/components/FeedbackDialog";
 import { AdBanner } from "@/components/AdBanner";
-import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2, ShieldCheck, Zap, Info, ScrollText, HeartHandshake, BookOpen, Fingerprint } from "lucide-react";
+import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2, ShieldCheck, Zap, Info, ScrollText, HeartHandshake, BookOpen, Fingerprint, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -71,6 +72,7 @@ export default function PocketTrackApp() {
   const [expenseDialogOpen, setExpenseDialogOpen] = useState(false);
   const [categoryDialogOpen, setCategoryDialogOpen] = useState(false);
   const [privacyDialogOpen, setPrivacyDialogOpen] = useState(false);
+  const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | undefined>(undefined);
   const [editingCategory, setEditingCategory] = useState<Category | undefined>(undefined);
 
@@ -292,6 +294,10 @@ export default function PocketTrackApp() {
                 </div>
 
                 <div className="space-y-3 pt-4">
+                  <Button variant="outline" className="w-full gap-2" onClick={() => setFeedbackDialogOpen(true)}>
+                    <Mail className="w-4 h-4" />
+                    Email Support
+                  </Button>
                   <Button variant="outline" className="w-full" onClick={() => setActiveTab("guide")}>Read Full User Guide</Button>
                   <Button 
                     variant="outline" 
@@ -393,6 +399,11 @@ export default function PocketTrackApp() {
       <PrivacyDialog
         open={privacyDialogOpen}
         onOpenChange={setPrivacyDialogOpen}
+      />
+
+      <FeedbackDialog
+        open={feedbackDialogOpen}
+        onOpenChange={setFeedbackDialogOpen}
       />
     </div>
   );

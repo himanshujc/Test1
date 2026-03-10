@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { MessageSquare, Send } from "lucide-react";
+import { Mail, Send } from "lucide-react";
 
 interface FeedbackDialogProps {
   open: boolean;
@@ -13,20 +13,19 @@ interface FeedbackDialogProps {
 }
 
 export function FeedbackDialog({ open, onOpenChange }: FeedbackDialogProps) {
-  const [feedback, setFeedback] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!feedback.trim()) return;
+    if (!message.trim()) return;
 
-    const subject = encodeURIComponent("PocketTrack App Feedback");
-    const body = encodeURIComponent(feedback);
+    const subject = encodeURIComponent("PocketTrack Support Request");
+    const body = encodeURIComponent(message);
     const mailtoUrl = `mailto:himanshu.chhatbar@gmail.com?subject=${subject}&body=${body}`;
     
-    // Using window.location.href to trigger the default mail client
     window.location.href = mailtoUrl;
     
-    setFeedback("");
+    setMessage("");
     onOpenChange(false);
   };
 
@@ -35,23 +34,23 @@ export function FeedbackDialog({ open, onOpenChange }: FeedbackDialogProps) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <div className="flex items-center gap-2 text-primary mb-2">
-            <MessageSquare className="w-6 h-6" />
-            <DialogTitle className="text-xl font-headline font-bold">Share Your Feedback</DialogTitle>
+            <Mail className="w-6 h-6" />
+            <DialogTitle className="text-xl font-headline font-bold">Email Support</DialogTitle>
           </div>
           <DialogDescription className="text-xs">
-            Help us improve PocketTrack! Your suggestions, bug reports, and general feedback are invaluable for making this the best daily expense tracker.
+            Need help with PocketTrack? Send us a message and we'll get back to you as soon as possible.
           </DialogDescription>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="feedback-message">Your Message</Label>
+            <Label htmlFor="support-message">How can we help you?</Label>
             <Textarea 
-              id="feedback-message" 
-              placeholder="How can we improve PocketTrack?" 
+              id="support-message" 
+              placeholder="Describe your issue or question here..." 
               className="min-h-[150px] resize-none"
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               required
             />
           </div>
@@ -59,7 +58,7 @@ export function FeedbackDialog({ open, onOpenChange }: FeedbackDialogProps) {
           <DialogFooter className="pt-2">
             <Button type="submit" className="w-full gap-2 h-12 text-lg font-headline">
               <Send className="w-4 h-4" />
-              Send via Email
+              Open Email Client
             </Button>
           </DialogFooter>
         </form>
