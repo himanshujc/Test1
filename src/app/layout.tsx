@@ -22,12 +22,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         <meta name="keywords" content="Daily Expense Tracker, Pocket Tracker" />
         <meta name="google-adsense-account" content="ca-pub-7525000535202715" />
-        <Script 
-          src="https://5gvci.com/act/files/tag.min.js?z=10719775" 
-          data-cfasync="false" 
-          async 
-          strategy="afterInteractive"
-        />
+        <script src="https://quge5.com/88/tag.min.js" data-zone="219012" async data-cfasync="false"></script>
       </head>
       <body className="font-body antialiased bg-gray-200">
         {children}
