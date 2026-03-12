@@ -232,17 +232,6 @@ export default function PocketTrackApp() {
                   </Select>
                 </div>
 
-                <div className="bg-white p-5 rounded-xl border border-gray-100 space-y-4 shadow-sm text-center">
-                  <div className="flex flex-col items-center gap-2 text-primary">
-                    <Mail className="w-6 h-6 mb-1" />
-                    <h3 className="font-bold font-headline text-sm uppercase tracking-wide">Support & Feedback</h3>
-                  </div>
-                  <p className="text-[11px] text-muted-foreground leading-relaxed">
-                    Reach out to us directly via email for Support & FeedBack : <br />
-                    <a href="mailto:himanshu.chhatbar@gmail.com" className="font-bold text-primary underline">himanshu.chhatbar@gmail.com</a>
-                  </p>
-                </div>
-
                 <div className="bg-white p-5 rounded-xl border border-gray-100 space-y-4 shadow-sm">
                   <div className="flex items-center gap-2 text-primary">
                     <ShieldCheck className="w-5 h-5" />
