@@ -9,7 +9,6 @@ import { UserGuide } from "@/components/UserGuide";
 import { ExpenseDialog } from "@/components/ExpenseDialog";
 import { CategoryDialog } from "@/components/CategoryDialog";
 import { PrivacyDialog } from "@/components/PrivacyDialog";
-import { AdBanner } from "@/components/AdBanner";
 import { LayoutGrid, PieChart, Plus, ReceiptText, Settings2, ShieldCheck, Zap, Info, ScrollText, HeartHandshake, BookOpen, Fingerprint, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -174,8 +173,6 @@ export default function PocketTrackApp() {
 
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto">
-        <AdBanner />
-
         {activeTab === "dashboard" && (
           <div className="px-6 py-10 bg-gradient-to-b from-primary/5 to-transparent text-center space-y-4 border-b border-primary/5">
             <h2 className="text-3xl font-black font-headline text-primary tracking-tight leading-tight">
@@ -235,7 +232,6 @@ export default function PocketTrackApp() {
                   </Select>
                 </div>
 
-                {/* Detailed Publisher Content Sections for AdSense Approval */}
                 <div className="bg-white p-5 rounded-xl border border-gray-100 space-y-4 shadow-sm text-center">
                   <div className="flex flex-col items-center gap-2 text-primary">
                     <Mail className="w-6 h-6 mb-1" />

@@ -9,7 +9,6 @@ import {
 import { getSpendingInsightSummary } from "@/ai/flows/spending-insight-summary";
 import { Sparkles, Info, Filter, BookOpen, Lightbulb, TrendingUp, ShieldCheck, GraduationCap, Gavel } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AdSenseUnit } from "./AdSenseUnit";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface DashboardViewProps {
