@@ -16,13 +16,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+      <script>(function(s){s.dataset.zone='10723372',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
         <meta name="keywords" content="Daily Expense Tracker, Pocket Tracker" />
         <meta name="google-adsense-account" content="ca-pub-7525000535202715" />
-        
+       
       </head>
       <body className="font-body antialiased bg-gray-200">
         {children}
